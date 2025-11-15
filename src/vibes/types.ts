@@ -17,8 +17,9 @@ export type VibesPackId =
 export type VibesMood = "CHILL" | "SPICY" | "DLUXE" | "URBAN" | "ARTSY";
 
 export interface VibesOption {
-  id: string;
+  id: string; // "A" | "B" | "C" | "D" | "E"
   label: string;
+  mood: VibesMood;
 }
 
 export interface VibesQuestion {
@@ -31,5 +32,4 @@ export interface VibesQuestion {
   options: VibesOption[];
   tags?: string[];
   isEnabled?: boolean;
-  moods?: VibesMood[];
 }
