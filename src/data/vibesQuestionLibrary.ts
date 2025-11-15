@@ -1,42 +1,5 @@
 import type { VibesQuestion } from "../vibes/types";
 
-const CORE_VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
-export type VibesCategory =
-  | "VIBE_ESENCIA"
-  | "VIBE_SOCIAL"
-  | "VIBE_DRAMA"
-  | "VIBE_SECRETA"
-  | "VIBE_CAOS";
-
-export type VibesSpicyLevel = "SOFT" | "MEDIUM" | "HOT";
-
-export type VibesPackId =
-  | "CORE_VIBES"
-  | "FAMILY_VIBES"
-  | "SPICY_VIBES"
-  | "EVENT_VIBES"
-  | "CUSTOM_VIBES";
-
-export type VibesMood = "CHILL" | "SPICY" | "DLUXE" | "URBAN" | "ARTSY";
-
-export interface VibesOption {
-  id: string;
-  label: string;
-}
-
-export interface VibesQuestion {
-  id: string;
-  category: VibesCategory;
-  categoryLabel: string;
-  packId: VibesPackId;
-  spicyLevel: VibesSpicyLevel;
-  text: string;
-  options: VibesOption[];
-  tags?: string[];
-  isEnabled?: boolean;
-  moods?: VibesMood[];
-}
-
 export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
   {
     id: "CORE-ESENCIA-1",
@@ -834,5 +797,3 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     moods: ["URBAN", "ARTSY", "SPICY"],
   },
 ];
-
-export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [...CORE_VIBES_QUESTION_LIBRARY];
