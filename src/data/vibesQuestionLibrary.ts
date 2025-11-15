@@ -9,12 +9,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué playlist pongo para activarme apenas abro el ojo?",
     options: [
-      { id: "A", label: "Pop glitter con coreografía imaginaria" },
-      { id: "B", label: "Neo soul suave para despertarme sin drama" },
-      { id: "C", label: "Reggaetón clásico para sentirme en after" },
-      { id: "D", label: "Indie llorón para saborear la nostalgia" }
+      { id: "A", label: "Pop glitter con coreografía imaginaria", mood: "CHILL" },
+      { id: "B", label: "Neo soul suave para despertarme sin drama", mood: "SPICY" },
+      { id: "C", label: "Reggaetón clásico para sentirme en after", mood: "DLUXE" },
+      { id: "D", label: "Indie llorón para saborear la nostalgia", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "URBAN"],
   },
   {
     id: "CORE-ESENCIA-2",
@@ -24,12 +23,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando necesito resetear mi vibra en medio del día?",
     options: [
-      { id: "A", label: "Me tiro cinco minutos a escuchar mi respiración" },
-      { id: "B", label: "Mando nota de voz épica contando el drama" },
-      { id: "C", label: "Busco un espejo y practico mi cara de diva" },
-      { id: "D", label: "Salgo a caminar y me creo videoclip urbano" }
+      { id: "A", label: "Me tiro cinco minutos a escuchar mi respiración", mood: "CHILL" },
+      { id: "B", label: "Mando nota de voz épica contando el drama", mood: "SPICY" },
+      { id: "C", label: "Busco un espejo y practico mi cara de diva", mood: "DLUXE" },
+      { id: "D", label: "Salgo a caminar y me creo videoclip urbano", mood: "URBAN" }
     ],
-    moods: ["CHILL", "DLUXE", "URBAN"],
   },
   {
     id: "CORE-ESENCIA-3",
@@ -39,12 +37,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi merienda firma cuando quiero mimo express?",
     options: [
-      { id: "A", label: "Mate o té con galletas caseras mood abuela" },
-      { id: "B", label: "Bubble tea con toppings extra porque me lo merezco" },
-      { id: "C", label: "Sandwich improvisado con todo lo de la heladera" },
-      { id: "D", label: "Fruta cortada cute que subo a stories" }
+      { id: "A", label: "Mate o té con galletas caseras mood abuela", mood: "CHILL" },
+      { id: "B", label: "Bubble tea con toppings extra porque me lo merezco", mood: "SPICY" },
+      { id: "C", label: "Sandwich improvisado con todo lo de la heladera", mood: "DLUXE" },
+      { id: "D", label: "Fruta cortada cute que subo a stories", mood: "URBAN" }
     ],
-    moods: ["CHILL", "DLUXE"],
   },
   {
     id: "CORE-ESENCIA-4",
@@ -54,12 +51,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo me motivo cuando tengo que hacer algo aburrido pero necesario?",
     options: [
-      { id: "A", label: "Me premio con un capricho fashion después" },
-      { id: "B", label: "Pido compañía por videollamada para charlar mientras" },
-      { id: "C", label: "Pongo cronómetro y lo vuelvo desafío conmigo" },
-      { id: "D", label: "Creo una playlist dramática y finjo que soy protagonista" }
+      { id: "A", label: "Me premio con un capricho fashion después", mood: "CHILL" },
+      { id: "B", label: "Pido compañía por videollamada para charlar mientras", mood: "SPICY" },
+      { id: "C", label: "Pongo cronómetro y lo vuelvo desafío conmigo", mood: "DLUXE" },
+      { id: "D", label: "Creo una playlist dramática y finjo que soy protagonista", mood: "URBAN" }
     ],
-    moods: ["SPICY", "DLUXE", "ARTSY"],
   },
   {
     id: "CORE-ESENCIA-5",
@@ -69,12 +65,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi mood básico de domingo perfecto?",
     options: [
-      { id: "A", label: "Series largas, mantita y delivery comfort" },
-      { id: "B", label: "Paseo artístico con outfit pintoresco" },
-      { id: "C", label: "Brunch casero con música vintage" },
-      { id: "D", label: "Ruta de feria y puestos del barrio" }
+      { id: "A", label: "Series largas, mantita y delivery comfort", mood: "CHILL" },
+      { id: "B", label: "Paseo artístico con outfit pintoresco", mood: "SPICY" },
+      { id: "C", label: "Brunch casero con música vintage", mood: "DLUXE" },
+      { id: "D", label: "Ruta de feria y puestos del barrio", mood: "URBAN" }
     ],
-    moods: ["CHILL", "URBAN", "ARTSY"],
   },
   {
     id: "CORE-ESENCIA-6",
@@ -84,12 +79,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué tipo de frase motivadora me prende al toque?",
     options: [
-      { id: "A", label: "\"Con calma, pero brillando\"" },
-      { id: "B", label: "\"Somos drama, pero del bueno\"" },
-      { id: "C", label: "\"Hazlo a tu manera aunque tiemble todo\"" },
-      { id: "D", label: "\"Que se note tu vibe urbana aunque sea lunes\"" }
+      { id: "A", label: "\"Con calma, pero brillando\"", mood: "CHILL" },
+      { id: "B", label: "\"Somos drama, pero del bueno\"", mood: "SPICY" },
+      { id: "C", label: "\"Hazlo a tu manera aunque tiemble todo\"", mood: "DLUXE" },
+      { id: "D", label: "\"Que se note tu vibe urbana aunque sea lunes\"", mood: "URBAN" }
     ],
-    moods: ["SPICY", "DLUXE", "URBAN"],
   },
   {
     id: "CORE-ESENCIA-7",
@@ -99,12 +93,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago con mis ahorros cuando me siento prospera?",
     options: [
-      { id: "A", label: "Me compro algo tech o gadget para elevar rutina" },
-      { id: "B", label: "Invierto en alguna experiencia artística" },
-      { id: "C", label: "Armo fondo de viajes improvisados" },
-      { id: "D", label: "Lo guardo prolijo porque soy previsora" }
+      { id: "A", label: "Me compro algo tech o gadget para elevar rutina", mood: "CHILL" },
+      { id: "B", label: "Invierto en alguna experiencia artística", mood: "SPICY" },
+      { id: "C", label: "Armo fondo de viajes improvisados", mood: "DLUXE" },
+      { id: "D", label: "Lo guardo prolijo porque soy previsora", mood: "URBAN" }
     ],
-    moods: ["DLUXE", "CHILL", "ARTSY"],
   },
   {
     id: "CORE-ESENCIA-8",
@@ -114,12 +107,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué estética me representa cuando salgo a la calle?",
     options: [
-      { id: "A", label: "Sporty glam con brillo estratégico" },
-      { id: "B", label: "Vintage rebuscado que parece casual" },
-      { id: "C", label: "Minimal urbano con toques de plata" },
-      { id: "D", label: "Artsy collage con colores imposibles" }
+      { id: "A", label: "Sporty glam con brillo estratégico", mood: "CHILL" },
+      { id: "B", label: "Vintage rebuscado que parece casual", mood: "SPICY" },
+      { id: "C", label: "Minimal urbano con toques de plata", mood: "DLUXE" },
+      { id: "D", label: "Artsy collage con colores imposibles", mood: "URBAN" }
     ],
-    moods: ["DLUXE", "URBAN", "ARTSY"],
   },
   {
     id: "CORE-ESENCIA-9",
@@ -129,12 +121,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi ritual de skincare mental cuando me saturé?",
     options: [
-      { id: "A", label: "Apagar todo y hacer journaling con velitas" },
-      { id: "B", label: "Videollamada con mi red de contención" },
-      { id: "C", label: "Bailar mis dramas frente al espejo" },
-      { id: "D", label: "Salir a un rooftop a respirar ciudad" }
+      { id: "A", label: "Apagar todo y hacer journaling con velitas", mood: "CHILL" },
+      { id: "B", label: "Videollamada con mi red de contención", mood: "SPICY" },
+      { id: "C", label: "Bailar mis dramas frente al espejo", mood: "DLUXE" },
+      { id: "D", label: "Salir a un rooftop a respirar ciudad", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "URBAN"],
   },
   {
     id: "CORE-ESENCIA-10",
@@ -144,12 +135,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué frase define mis vibes cuando me preguntan cómo estoy?",
     options: [
-      { id: "A", label: "Sosteniendo el glamour con café" },
-      { id: "B", label: "En modo chill, pero con radar encendido" },
-      { id: "C", label: "Planeando el próximo caos divertido" },
-      { id: "D", label: "Soñando proyectos raros todo el día" }
+      { id: "A", label: "Sosteniendo el glamour con café", mood: "CHILL" },
+      { id: "B", label: "En modo chill, pero con radar encendido", mood: "SPICY" },
+      { id: "C", label: "Planeando el próximo caos divertido", mood: "DLUXE" },
+      { id: "D", label: "Soñando proyectos raros todo el día", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "ARTSY"],
   },
   {
     id: "CORE-ESENCIA-11",
@@ -159,12 +149,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago con mi pelo cuando quiero sentir que renací?",
     options: [
-      { id: "A", label: "Me hago ondas suaves y aroma a vainilla" },
-      { id: "B", label: "Le doy volumen dramático como estrella pop" },
-      { id: "C", label: "Lo dejo messy chic con gorra urbana" },
-      { id: "D", label: "Juego con accesorios artsy rarísimos" }
+      { id: "A", label: "Me hago ondas suaves y aroma a vainilla", mood: "CHILL" },
+      { id: "B", label: "Le doy volumen dramático como estrella pop", mood: "SPICY" },
+      { id: "C", label: "Lo dejo messy chic con gorra urbana", mood: "DLUXE" },
+      { id: "D", label: "Juego con accesorios artsy rarísimos", mood: "URBAN" }
     ],
-    moods: ["DLUXE", "SPICY", "ARTSY"],
   },
   {
     id: "CORE-ESENCIA-12",
@@ -174,12 +163,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago con mis mensajes sin responder cuando me da ansiedad?",
     options: [
-      { id: "A", label: "Los organizo con calma y respondo con mate" },
-      { id: "B", label: "Hago maratón de audios sincericidas" },
-      { id: "C", label: "Los limpio con respuestas rápidas y emojis" },
-      { id: "D", label: "Dejo que mi mood artsy decida un meme" }
+      { id: "A", label: "Los organizo con calma y respondo con mate", mood: "CHILL" },
+      { id: "B", label: "Hago maratón de audios sincericidas", mood: "SPICY" },
+      { id: "C", label: "Los limpio con respuestas rápidas y emojis", mood: "DLUXE" },
+      { id: "D", label: "Dejo que mi mood artsy decida un meme", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "ARTSY"],
   },
   {
     id: "CORE-SOCIAL-1",
@@ -189,12 +177,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo entro a una fiesta donde casi no conozco a nadie?",
     options: [
-      { id: "A", label: "Busco la playlist y me hago DJ honoraria" },
-      { id: "B", label: "Me pego a la barra y charlo con quien caiga" },
-      { id: "C", label: "Analizo el ambiente hasta encontrar mi gente" },
-      { id: "D", label: "Llego con historia dramática para romper el hielo" }
+      { id: "A", label: "Busco la playlist y me hago DJ honoraria", mood: "CHILL" },
+      { id: "B", label: "Me pego a la barra y charlo con quien caiga", mood: "SPICY" },
+      { id: "C", label: "Analizo el ambiente hasta encontrar mi gente", mood: "DLUXE" },
+      { id: "D", label: "Llego con historia dramática para romper el hielo", mood: "URBAN" }
     ],
-    moods: ["SPICY", "URBAN", "DLUXE"],
   },
   {
     id: "CORE-SOCIAL-2",
@@ -204,12 +191,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando el grupo de WhatsApp explota de mensajes?",
     options: [
-      { id: "A", label: "Respondo con resumen ejecutivo y sticker icónico" },
-      { id: "B", label: "Mando audio largo para poner orden dramático" },
-      { id: "C", label: "Leo todo en silencio y reacciono con corazones" },
-      { id: "D", label: "Propongo juntada urgente para charlar en vivo" }
+      { id: "A", label: "Respondo con resumen ejecutivo y sticker icónico", mood: "CHILL" },
+      { id: "B", label: "Mando audio largo para poner orden dramático", mood: "SPICY" },
+      { id: "C", label: "Leo todo en silencio y reacciono con corazones", mood: "DLUXE" },
+      { id: "D", label: "Propongo juntada urgente para charlar en vivo", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "URBAN"],
   },
   {
     id: "CORE-SOCIAL-3",
@@ -219,12 +205,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi rol en una noche de karaoke con amigxs?",
     options: [
-      { id: "A", label: "Animadora que reparte micrófono y aplausos" },
-      { id: "B", label: "Diva dramática que canta baladas con acting" },
-      { id: "C", label: "Directora creativa que arma dúos inesperados" },
-      { id: "D", label: "Reportera stories mostrando backstage" }
+      { id: "A", label: "Animadora que reparte micrófono y aplausos", mood: "CHILL" },
+      { id: "B", label: "Diva dramática que canta baladas con acting", mood: "SPICY" },
+      { id: "C", label: "Directora creativa que arma dúos inesperados", mood: "DLUXE" },
+      { id: "D", label: "Reportera stories mostrando backstage", mood: "URBAN" }
     ],
-    moods: ["DLUXE", "SPICY", "ARTSY"],
   },
   {
     id: "CORE-SOCIAL-4",
@@ -234,12 +219,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando mi plan de juntada se cae a último momento?",
     options: [
-      { id: "A", label: "Propongo videollamada improvisada" },
-      { id: "B", label: "Organizo plan alternativo con quien esté libre" },
-      { id: "C", label: "Aprovecho para noche de autocuidado deluxe" },
-      { id: "D", label: "Salgo sola y hago amigos nuevos" }
+      { id: "A", label: "Propongo videollamada improvisada", mood: "CHILL" },
+      { id: "B", label: "Organizo plan alternativo con quien esté libre", mood: "SPICY" },
+      { id: "C", label: "Aprovecho para noche de autocuidado deluxe", mood: "DLUXE" },
+      { id: "D", label: "Salgo sola y hago amigos nuevos", mood: "URBAN" }
     ],
-    moods: ["CHILL", "DLUXE", "URBAN"],
   },
   {
     id: "CORE-SOCIAL-5",
@@ -249,12 +233,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo reacciono cuando alguien del grupo está triste?",
     options: [
-      { id: "A", label: "Le mando audio largo lleno de amor" },
-      { id: "B", label: "Organizo kit de memes personalizados" },
-      { id: "C", label: "Armo tarde tranquila con té y charlas" },
-      { id: "D", label: "Lo secuestro para paseo sorpresa por la ciudad" }
+      { id: "A", label: "Le mando audio largo lleno de amor", mood: "CHILL" },
+      { id: "B", label: "Organizo kit de memes personalizados", mood: "SPICY" },
+      { id: "C", label: "Armo tarde tranquila con té y charlas", mood: "DLUXE" },
+      { id: "D", label: "Lo secuestro para paseo sorpresa por la ciudad", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "URBAN"],
   },
   {
     id: "CORE-SOCIAL-6",
@@ -264,12 +247,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi estrategia para presentar a dos grupitos que no se conocen?",
     options: [
-      { id: "A", label: "Juegos rompehielo con mucho glitter" },
-      { id: "B", label: "Hilos de historias que los conectan" },
-      { id: "C", label: "Música curada para que fluyan solos" },
-      { id: "D", label: "Tour urbano mostrando mis spots favoritos" }
+      { id: "A", label: "Juegos rompehielo con mucho glitter", mood: "CHILL" },
+      { id: "B", label: "Hilos de historias que los conectan", mood: "SPICY" },
+      { id: "C", label: "Música curada para que fluyan solos", mood: "DLUXE" },
+      { id: "D", label: "Tour urbano mostrando mis spots favoritos", mood: "URBAN" }
     ],
-    moods: ["SPICY", "ARTSY", "URBAN"],
   },
   {
     id: "CORE-SOCIAL-7",
@@ -279,12 +261,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando alguien me pide consejo amoroso intensito?",
     options: [
-      { id: "A", label: "Escucho y doy respuesta zen sin juzgar" },
-      { id: "B", label: "Hago análisis dramático con referencias de series" },
-      { id: "C", label: "Propongo plan para distraer y volver a brillar" },
-      { id: "D", label: "Les tiro playlist terapéutica y memes" }
+      { id: "A", label: "Escucho y doy respuesta zen sin juzgar", mood: "CHILL" },
+      { id: "B", label: "Hago análisis dramático con referencias de series", mood: "SPICY" },
+      { id: "C", label: "Propongo plan para distraer y volver a brillar", mood: "DLUXE" },
+      { id: "D", label: "Les tiro playlist terapéutica y memes", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "ARTSY"],
   },
   {
     id: "CORE-SOCIAL-8",
@@ -294,12 +275,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo organizo un planazo cuando viene visita inesperada?",
     options: [
-      { id: "A", label: "Tour gastronómico por mi barrio" },
-      { id: "B", label: "Velada de spa casero con mascarillas" },
-      { id: "C", label: "Galería, feria y fotos artsy por la ciudad" },
-      { id: "D", label: "Fiestón casero con luces y karaoke" }
+      { id: "A", label: "Tour gastronómico por mi barrio", mood: "CHILL" },
+      { id: "B", label: "Velada de spa casero con mascarillas", mood: "SPICY" },
+      { id: "C", label: "Galería, feria y fotos artsy por la ciudad", mood: "DLUXE" },
+      { id: "D", label: "Fiestón casero con luces y karaoke", mood: "URBAN" }
     ],
-    moods: ["URBAN", "CHILL", "SPICY"],
   },
   {
     id: "CORE-SOCIAL-9",
@@ -309,12 +289,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando me agregan a un chat familiar caótico?",
     options: [
-      { id: "A", label: "Entro suave con stickers tiernos" },
-      { id: "B", label: "Lanzo meme para marcar mi presencia" },
-      { id: "C", label: "Organizo video call para entender el drama" },
-      { id: "D", label: "Leo todo y respondo con resumen diplomático" }
+      { id: "A", label: "Entro suave con stickers tiernos", mood: "CHILL" },
+      { id: "B", label: "Lanzo meme para marcar mi presencia", mood: "SPICY" },
+      { id: "C", label: "Organizo video call para entender el drama", mood: "DLUXE" },
+      { id: "D", label: "Leo todo y respondo con resumen diplomático", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "URBAN"],
   },
   {
     id: "CORE-SOCIAL-10",
@@ -324,12 +303,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo reacciono cuando me presentan a un crush del que hablaron mil años?",
     options: [
-      { id: "A", label: "Sonrisa calmada y charla tranquila" },
-      { id: "B", label: "Entro con chiste y guiño dramático" },
-      { id: "C", label: "Lo investigo en modo periodista del barrio" },
-      { id: "D", label: "Me hago la misteriosa y dejo intriga" }
+      { id: "A", label: "Sonrisa calmada y charla tranquila", mood: "CHILL" },
+      { id: "B", label: "Entro con chiste y guiño dramático", mood: "SPICY" },
+      { id: "C", label: "Lo investigo en modo periodista del barrio", mood: "DLUXE" },
+      { id: "D", label: "Me hago la misteriosa y dejo intriga", mood: "URBAN" }
     ],
-    moods: ["SPICY", "URBAN", "DLUXE"],
   },
   {
     id: "CORE-SOCIAL-11",
@@ -339,12 +317,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi manera favorita de celebrar un logro ajeno?",
     options: [
-      { id: "A", label: "Organizo mini brindis con glitter" },
-      { id: "B", label: "Creo collage de fotos para redes" },
-      { id: "C", label: "Les escribo carta dramática de amor" },
-      { id: "D", label: "Armo excursión urbana sorpresa" }
+      { id: "A", label: "Organizo mini brindis con glitter", mood: "CHILL" },
+      { id: "B", label: "Creo collage de fotos para redes", mood: "SPICY" },
+      { id: "C", label: "Les escribo carta dramática de amor", mood: "DLUXE" },
+      { id: "D", label: "Armo excursión urbana sorpresa", mood: "URBAN" }
     ],
-    moods: ["DLUXE", "ARTSY", "URBAN"],
   },
   {
     id: "CORE-SOCIAL-12",
@@ -354,12 +331,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando quiero reunir a la familia elegida después de meses?",
     options: [
-      { id: "A", label: "Hago doodle interminable hasta conseguir fecha" },
-      { id: "B", label: "Lanzo ultimátum cariñoso con fecha fija" },
-      { id: "C", label: "Propongo retiro chill con pijamas" },
-      { id: "D", label: "Planifico road trip urbano con playlist" }
+      { id: "A", label: "Hago doodle interminable hasta conseguir fecha", mood: "CHILL" },
+      { id: "B", label: "Lanzo ultimátum cariñoso con fecha fija", mood: "SPICY" },
+      { id: "C", label: "Propongo retiro chill con pijamas", mood: "DLUXE" },
+      { id: "D", label: "Planifico road trip urbano con playlist", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "URBAN"],
   },
   {
     id: "CORE-DRAMA-1",
@@ -369,12 +345,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando mi crush tarda horas en responder?",
     options: [
-      { id: "A", label: "Respiro, me enfoco en mis cosas y lo suelto" },
-      { id: "B", label: "Armo teoría conspirativa con memes" },
-      { id: "C", label: "Escribo respuesta intensa y la dejo en borrador" },
-      { id: "D", label: "Subo story sutil para recordar mi existencia" }
+      { id: "A", label: "Respiro, me enfoco en mis cosas y lo suelto", mood: "CHILL" },
+      { id: "B", label: "Armo teoría conspirativa con memes", mood: "SPICY" },
+      { id: "C", label: "Escribo respuesta intensa y la dejo en borrador", mood: "DLUXE" },
+      { id: "D", label: "Subo story sutil para recordar mi existencia", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "DLUXE"],
   },
   {
     id: "CORE-DRAMA-2",
@@ -384,12 +359,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi reacción cuando alguien se olvida de invitarme?",
     options: [
-      { id: "A", label: "Lo hablo directo con honestidad chill" },
-      { id: "B", label: "Planifico entrada triunfal al próximo plan" },
-      { id: "C", label: "Armo fiesta alternativa ese mismo día" },
-      { id: "D", label: "Escribo diario dramático y después sigo" }
+      { id: "A", label: "Lo hablo directo con honestidad chill", mood: "CHILL" },
+      { id: "B", label: "Planifico entrada triunfal al próximo plan", mood: "SPICY" },
+      { id: "C", label: "Armo fiesta alternativa ese mismo día", mood: "DLUXE" },
+      { id: "D", label: "Escribo diario dramático y después sigo", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "URBAN"],
   },
   {
     id: "CORE-DRAMA-3",
@@ -399,12 +373,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando hay silencio incómodo en la mesa?",
     options: [
-      { id: "A", label: "Lanzo pregunta profunda pero suave" },
-      { id: "B", label: "Cuento anécdota absurda que siempre funciona" },
-      { id: "C", label: "Pongo juego express de verdad o reto light" },
-      { id: "D", label: "Dejo que el momento respire y observo" }
+      { id: "A", label: "Lanzo pregunta profunda pero suave", mood: "CHILL" },
+      { id: "B", label: "Cuento anécdota absurda que siempre funciona", mood: "SPICY" },
+      { id: "C", label: "Pongo juego express de verdad o reto light", mood: "DLUXE" },
+      { id: "D", label: "Dejo que el momento respire y observo", mood: "URBAN" }
     ],
-    moods: ["SPICY", "CHILL", "ARTSY"],
   },
   {
     id: "CORE-DRAMA-4",
@@ -414,12 +387,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando se arma malentendido en el grupo?",
     options: [
-      { id: "A", label: "Mando audio diplomático para mediar" },
-      { id: "B", label: "Organizo reunión urgente con mate" },
-      { id: "C", label: "Dejo que se enfríe y luego hablo uno a uno" },
-      { id: "D", label: "Creo documento compartido con la cronología" }
+      { id: "A", label: "Mando audio diplomático para mediar", mood: "CHILL" },
+      { id: "B", label: "Organizo reunión urgente con mate", mood: "SPICY" },
+      { id: "C", label: "Dejo que se enfríe y luego hablo uno a uno", mood: "DLUXE" },
+      { id: "D", label: "Creo documento compartido con la cronología", mood: "URBAN" }
     ],
-    moods: ["CHILL", "URBAN", "ARTSY"],
   },
   {
     id: "CORE-DRAMA-5",
@@ -429,12 +401,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo manejo cuando alguien hace comentario pasivo agresivo?",
     options: [
-      { id: "A", label: "Respondo con ironía cariñosa" },
-      { id: "B", label: "Le pregunto directo qué quiso decir" },
-      { id: "C", label: "Ignoro y convierto el tema en chiste" },
-      { id: "D", label: "Lo saco a bailar para cambiar la energía" }
+      { id: "A", label: "Respondo con ironía cariñosa", mood: "CHILL" },
+      { id: "B", label: "Le pregunto directo qué quiso decir", mood: "SPICY" },
+      { id: "C", label: "Ignoro y convierto el tema en chiste", mood: "DLUXE" },
+      { id: "D", label: "Lo saco a bailar para cambiar la energía", mood: "URBAN" }
     ],
-    moods: ["SPICY", "URBAN", "CHILL"],
   },
   {
     id: "CORE-DRAMA-6",
@@ -444,12 +415,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando me enteré de un chisme jugoso?",
     options: [
-      { id: "A", label: "Lo guardo en caja fuerte hasta tener contexto" },
-      { id: "B", label: "Lo comparto solo con mi comité de confianza" },
-      { id: "C", label: "Espero y lo transformo en meme cuando pase" },
-      { id: "D", label: "Lo uso para producir tertulia dramática controlada" }
+      { id: "A", label: "Lo guardo en caja fuerte hasta tener contexto", mood: "CHILL" },
+      { id: "B", label: "Lo comparto solo con mi comité de confianza", mood: "SPICY" },
+      { id: "C", label: "Espero y lo transformo en meme cuando pase", mood: "DLUXE" },
+      { id: "D", label: "Lo uso para producir tertulia dramática controlada", mood: "URBAN" }
     ],
-    moods: ["SPICY", "CHILL", "ARTSY"],
   },
   {
     id: "CORE-DRAMA-7",
@@ -459,12 +429,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo reacciono cuando alguien me ghostea suave?",
     options: [
-      { id: "A", label: "Acepto la señal y me enfoco en mí" },
-      { id: "B", label: "Lanzo mensaje final con cierre dramático" },
-      { id: "C", label: "Lo cuento como novela en el grupo" },
-      { id: "D", label: "Me invento un plan épico para olvidar" }
+      { id: "A", label: "Acepto la señal y me enfoco en mí", mood: "CHILL" },
+      { id: "B", label: "Lanzo mensaje final con cierre dramático", mood: "SPICY" },
+      { id: "C", label: "Lo cuento como novela en el grupo", mood: "DLUXE" },
+      { id: "D", label: "Me invento un plan épico para olvidar", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "DLUXE"],
   },
   {
     id: "CORE-DRAMA-8",
@@ -474,12 +443,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando mi serie favorita me rompe el corazón?",
     options: [
-      { id: "A", label: "Me permito llorar y escribo reseña sensible" },
-      { id: "B", label: "Armo watch party para debatir el drama" },
-      { id: "C", label: "Cambio a reality divertido para equilibrar" },
-      { id: "D", label: "Dibujo fanart para sublimar el dolor" }
+      { id: "A", label: "Me permito llorar y escribo reseña sensible", mood: "CHILL" },
+      { id: "B", label: "Armo watch party para debatir el drama", mood: "SPICY" },
+      { id: "C", label: "Cambio a reality divertido para equilibrar", mood: "DLUXE" },
+      { id: "D", label: "Dibujo fanart para sublimar el dolor", mood: "URBAN" }
     ],
-    moods: ["ARTSY", "CHILL", "SPICY"],
   },
   {
     id: "CORE-DRAMA-9",
@@ -489,12 +457,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo manejo cuando mi agenda está explotada?",
     options: [
-      { id: "A", label: "Reacomodo con calma y priorizo autocuidado" },
-      { id: "B", label: "Declaro emergencia y pido ayuda" },
-      { id: "C", label: "Cancelo algo y lo convierto en meme" },
-      { id: "D", label: "Hago horario deluxe con bloques glam" }
+      { id: "A", label: "Reacomodo con calma y priorizo autocuidado", mood: "CHILL" },
+      { id: "B", label: "Declaro emergencia y pido ayuda", mood: "SPICY" },
+      { id: "C", label: "Cancelo algo y lo convierto en meme", mood: "DLUXE" },
+      { id: "D", label: "Hago horario deluxe con bloques glam", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "DLUXE"],
   },
   {
     id: "CORE-DRAMA-10",
@@ -504,12 +471,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando me entero tarde de un evento icónico?",
     options: [
-      { id: "A", label: "Armo watch party diferida con mis comentarios" },
-      { id: "B", label: "Entro con outfit exagerado al after" },
-      { id: "C", label: "Acepto FOMO y planifico el próximo con tiempo" },
-      { id: "D", label: "Hago hilo en redes con análisis dramático" }
+      { id: "A", label: "Armo watch party diferida con mis comentarios", mood: "CHILL" },
+      { id: "B", label: "Entro con outfit exagerado al after", mood: "SPICY" },
+      { id: "C", label: "Acepto FOMO y planifico el próximo con tiempo", mood: "DLUXE" },
+      { id: "D", label: "Hago hilo en redes con análisis dramático", mood: "URBAN" }
     ],
-    moods: ["SPICY", "DLUXE", "URBAN"],
   },
   {
     id: "CORE-DRAMA-11",
@@ -519,12 +485,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cómo reacciono cuando mis planes perfectos se descarrilan?",
     options: [
-      { id: "A", label: "Me río y documento el caos" },
-      { id: "B", label: "Reorganizo con plan B brillante" },
-      { id: "C", label: "Hago catarsis en stories con filtros" },
-      { id: "D", label: "Lo transformo en micro performance" }
+      { id: "A", label: "Me río y documento el caos", mood: "CHILL" },
+      { id: "B", label: "Reorganizo con plan B brillante", mood: "SPICY" },
+      { id: "C", label: "Hago catarsis en stories con filtros", mood: "DLUXE" },
+      { id: "D", label: "Lo transformo en micro performance", mood: "URBAN" }
     ],
-    moods: ["SPICY", "ARTSY", "URBAN"],
   },
   {
     id: "CORE-DRAMA-12",
@@ -534,12 +499,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando alguien interrumpe mi momento chill?",
     options: [
-      { id: "A", label: "Pongo límites suaves y vuelvo a mi manta" },
-      { id: "B", label: "Los sumo a mi ritual deluxe" },
-      { id: "C", label: "Les delego tarea para canalizar" },
-      { id: "D", label: "Armo mini show para justificar la interrupción" }
+      { id: "A", label: "Pongo límites suaves y vuelvo a mi manta", mood: "CHILL" },
+      { id: "B", label: "Los sumo a mi ritual deluxe", mood: "SPICY" },
+      { id: "C", label: "Les delego tarea para canalizar", mood: "DLUXE" },
+      { id: "D", label: "Armo mini show para justificar la interrupción", mood: "URBAN" }
     ],
-    moods: ["CHILL", "DLUXE", "SPICY"],
   },
   {
     id: "CORE-SECRETA-1",
@@ -549,12 +513,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi guilty pleasure que casi no confieso?",
     options: [
-      { id: "A", label: "Ver realities de reformas hasta dormirme" },
-      { id: "B", label: "Escuchar cumbias viejas a todo volumen" },
-      { id: "C", label: "Coleccionar revistas con perfume" },
-      { id: "D", label: "Seguir fanfics raros en foros secretos" }
+      { id: "A", label: "Ver realities de reformas hasta dormirme", mood: "CHILL" },
+      { id: "B", label: "Escuchar cumbias viejas a todo volumen", mood: "SPICY" },
+      { id: "C", label: "Coleccionar revistas con perfume", mood: "DLUXE" },
+      { id: "D", label: "Seguir fanfics raros en foros secretos", mood: "URBAN" }
     ],
-    moods: ["CHILL", "URBAN", "ARTSY"],
   },
   {
     id: "CORE-SECRETA-2",
@@ -564,12 +527,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando quiero sentirme misteriosa?",
     options: [
-      { id: "A", label: "Cambio mi foto de perfil sin aviso" },
-      { id: "B", label: "Me pierdo en librería y subo stories crípticos" },
-      { id: "C", label: "Salgo a caminar de noche escuchando boleros" },
-      { id: "D", label: "Escribo poesía en notas y no la muestro" }
+      { id: "A", label: "Cambio mi foto de perfil sin aviso", mood: "CHILL" },
+      { id: "B", label: "Me pierdo en librería y subo stories crípticos", mood: "SPICY" },
+      { id: "C", label: "Salgo a caminar de noche escuchando boleros", mood: "DLUXE" },
+      { id: "D", label: "Escribo poesía en notas y no la muestro", mood: "URBAN" }
     ],
-    moods: ["ARTSY", "URBAN", "DLUXE"],
   },
   {
     id: "CORE-SECRETA-3",
@@ -579,12 +541,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi fantasía de vida alternativa?",
     options: [
-      { id: "A", label: "Tener café librería en la costa" },
-      { id: "B", label: "Ser coreógrafa de giras pop" },
-      { id: "C", label: "Vivir en van y hacer murales" },
-      { id: "D", label: "Ser crítica secreta de restaurantes" }
+      { id: "A", label: "Tener café librería en la costa", mood: "CHILL" },
+      { id: "B", label: "Ser coreógrafa de giras pop", mood: "SPICY" },
+      { id: "C", label: "Vivir en van y hacer murales", mood: "DLUXE" },
+      { id: "D", label: "Ser crítica secreta de restaurantes", mood: "URBAN" }
     ],
-    moods: ["CHILL", "DLUXE", "ARTSY"],
   },
   {
     id: "CORE-SECRETA-4",
@@ -594,12 +555,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago con mis ideas creativas a las 3 AM?",
     options: [
-      { id: "A", label: "Las anoto en cuaderno lleno de stickers" },
-      { id: "B", label: "Les mando audio a mis confidentes nocturnos" },
-      { id: "C", label: "Armo moodboard secreto en Pinterest" },
-      { id: "D", label: "Las convierto en hilo anónimo" }
+      { id: "A", label: "Las anoto en cuaderno lleno de stickers", mood: "CHILL" },
+      { id: "B", label: "Les mando audio a mis confidentes nocturnos", mood: "SPICY" },
+      { id: "C", label: "Armo moodboard secreto en Pinterest", mood: "DLUXE" },
+      { id: "D", label: "Las convierto en hilo anónimo", mood: "URBAN" }
     ],
-    moods: ["ARTSY", "SPICY", "CHILL"],
   },
   {
     id: "CORE-SECRETA-5",
@@ -609,12 +569,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi táctica cuando stalkeo un perfil?",
     options: [
-      { id: "A", label: "Modo ninja: solo stories anónimas" },
-      { id: "B", label: "Likeo fotos antiguas para provocar" },
-      { id: "C", label: "Investigo amistades en modo detective" },
-      { id: "D", label: "Guardo posts para un collage secreto" }
+      { id: "A", label: "Modo ninja: solo stories anónimas", mood: "CHILL" },
+      { id: "B", label: "Likeo fotos antiguas para provocar", mood: "SPICY" },
+      { id: "C", label: "Investigo amistades en modo detective", mood: "DLUXE" },
+      { id: "D", label: "Guardo posts para un collage secreto", mood: "URBAN" }
     ],
-    moods: ["SPICY", "URBAN", "ARTSY"],
   },
   {
     id: "CORE-SECRETA-6",
@@ -624,12 +583,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué colecciono en silencio desde hace años?",
     options: [
-      { id: "A", label: "Tickets de conciertos y cines" },
-      { id: "B", label: "Cartas y notas manuscritas" },
-      { id: "C", label: "Fotos polaroid de noches urbanas" },
-      { id: "D", label: "Trinkets brillantes de mercaditos" }
+      { id: "A", label: "Tickets de conciertos y cines", mood: "CHILL" },
+      { id: "B", label: "Cartas y notas manuscritas", mood: "SPICY" },
+      { id: "C", label: "Fotos polaroid de noches urbanas", mood: "DLUXE" },
+      { id: "D", label: "Trinkets brillantes de mercaditos", mood: "URBAN" }
     ],
-    moods: ["CHILL", "URBAN", "DLUXE"],
   },
   {
     id: "CORE-SECRETA-7",
@@ -639,12 +597,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando me quedo sola en casa un viernes?",
     options: [
-      { id: "A", label: "Organizo spa nocturno con playlists slow" },
-      { id: "B", label: "Produzco coreografía secreta en el living" },
-      { id: "C", label: "Pinto o escribo hasta tarde" },
-      { id: "D", label: "Hago tour nocturno por deliverys raros" }
+      { id: "A", label: "Organizo spa nocturno con playlists slow", mood: "CHILL" },
+      { id: "B", label: "Produzco coreografía secreta en el living", mood: "SPICY" },
+      { id: "C", label: "Pinto o escribo hasta tarde", mood: "DLUXE" },
+      { id: "D", label: "Hago tour nocturno por deliverys raros", mood: "URBAN" }
     ],
-    moods: ["CHILL", "SPICY", "URBAN"],
   },
   {
     id: "CORE-SECRETA-8",
@@ -654,12 +611,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi talento oculto que casi nadie conoce?",
     options: [
-      { id: "A", label: "Imitar voces de celebridades" },
-      { id: "B", label: "Leer cartas del tarot intuitivo" },
-      { id: "C", label: "Encontrar ofertas callejeras increíbles" },
-      { id: "D", label: "Hacer playlists que curan corazones" }
+      { id: "A", label: "Imitar voces de celebridades", mood: "CHILL" },
+      { id: "B", label: "Leer cartas del tarot intuitivo", mood: "SPICY" },
+      { id: "C", label: "Encontrar ofertas callejeras increíbles", mood: "DLUXE" },
+      { id: "D", label: "Hacer playlists que curan corazones", mood: "URBAN" }
     ],
-    moods: ["SPICY", "ARTSY", "URBAN"],
   },
   {
     id: "CORE-SECRETA-9",
@@ -669,12 +625,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué ritual secreto tengo antes de una cita?",
     options: [
-      { id: "A", label: "Mantra frente al espejo con luz cálida" },
-      { id: "B", label: "Revisión de memes compartidos" },
-      { id: "C", label: "Paseo corto por la ciudad para activar" },
-      { id: "D", label: "Creo perfume casero con aceites" }
+      { id: "A", label: "Mantra frente al espejo con luz cálida", mood: "CHILL" },
+      { id: "B", label: "Revisión de memes compartidos", mood: "SPICY" },
+      { id: "C", label: "Paseo corto por la ciudad para activar", mood: "DLUXE" },
+      { id: "D", label: "Creo perfume casero con aceites", mood: "URBAN" }
     ],
-    moods: ["DLUXE", "URBAN", "CHILL"],
   },
   {
     id: "CORE-SECRETA-10",
@@ -684,12 +639,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago cuando quiero desaparecer de redes un rato?",
     options: [
-      { id: "A", label: "Borro apps y me voy al parque con libro" },
-      { id: "B", label: "Solo subo fotos de nubes y pistas crípticas" },
-      { id: "C", label: "Le doy mis claves a mi hermana y listo" },
-      { id: "D", label: "Activo modo lurker sin interactuar" }
+      { id: "A", label: "Borro apps y me voy al parque con libro", mood: "CHILL" },
+      { id: "B", label: "Solo subo fotos de nubes y pistas crípticas", mood: "SPICY" },
+      { id: "C", label: "Le doy mis claves a mi hermana y listo", mood: "DLUXE" },
+      { id: "D", label: "Activo modo lurker sin interactuar", mood: "URBAN" }
     ],
-    moods: ["CHILL", "ARTSY", "URBAN"],
   },
   {
     id: "CORE-SECRETA-11",
@@ -699,12 +653,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué guardo siempre en mi bolso por si pasa algo mágico?",
     options: [
-      { id: "A", label: "Polaroid para capturar vibes" },
-      { id: "B", label: "Brillos y glitter para emergencias" },
-      { id: "C", label: "Un cuaderno con mis sueños" },
-      { id: "D", label: "Snacks misteriosos para compartir" }
+      { id: "A", label: "Polaroid para capturar vibes", mood: "CHILL" },
+      { id: "B", label: "Brillos y glitter para emergencias", mood: "SPICY" },
+      { id: "C", label: "Un cuaderno con mis sueños", mood: "DLUXE" },
+      { id: "D", label: "Snacks misteriosos para compartir", mood: "URBAN" }
     ],
-    moods: ["DLUXE", "ARTSY", "CHILL"],
   },
   {
     id: "CORE-SECRETA-12",
@@ -714,12 +667,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Cuál es mi hábito secreto para sentir que controlo el caos?",
     options: [
-      { id: "A", label: "Listas infinitas con stickers" },
-      { id: "B", label: "Clasificar playlists por colores" },
-      { id: "C", label: "Ordenar closet según vibes" },
-      { id: "D", label: "Guardar cajas con recuerdos por tema" }
+      { id: "A", label: "Listas infinitas con stickers", mood: "CHILL" },
+      { id: "B", label: "Clasificar playlists por colores", mood: "SPICY" },
+      { id: "C", label: "Ordenar closet según vibes", mood: "DLUXE" },
+      { id: "D", label: "Guardar cajas con recuerdos por tema", mood: "URBAN" }
     ],
-    moods: ["CHILL", "DLUXE", "ARTSY"],
   },
   {
     id: "CORE-CAOS-1",
@@ -729,12 +681,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago si me encuentro con mi ex y su nueva cita en el súper?",
     options: [
-      { id: "A", label: "Sonrío, saludo y agarro mi carrito digna" },
-      { id: "B", label: "Hago comentario random y sigo bailando" },
-      { id: "C", label: "Los ignoro y me escondo en pasillo de snacks" },
-      { id: "D", label: "Les recomiendo un producto como influencer" }
+      { id: "A", label: "Sonrío, saludo y agarro mi carrito digna", mood: "CHILL" },
+      { id: "B", label: "Hago comentario random y sigo bailando", mood: "SPICY" },
+      { id: "C", label: "Los ignoro y me escondo en pasillo de snacks", mood: "DLUXE" },
+      { id: "D", label: "Les recomiendo un producto como influencer", mood: "URBAN" }
     ],
-    moods: ["SPICY", "URBAN", "DLUXE"],
   },
   {
     id: "CORE-CAOS-2",
@@ -744,12 +695,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago si se corta la luz en plena cena que organicé?",
     options: [
-      { id: "A", label: "Lanzo velas y convierto todo en ritual místico" },
-      { id: "B", label: "Armo rave acústica con utensilios" },
-      { id: "C", label: "Improviso picnic en el piso con historias" },
-      { id: "D", label: "Transmito en vivo el caos para los ausentes" }
+      { id: "A", label: "Lanzo velas y convierto todo en ritual místico", mood: "CHILL" },
+      { id: "B", label: "Armo rave acústica con utensilios", mood: "SPICY" },
+      { id: "C", label: "Improviso picnic en el piso con historias", mood: "DLUXE" },
+      { id: "D", label: "Transmito en vivo el caos para los ausentes", mood: "URBAN" }
     ],
-    moods: ["SPICY", "ARTSY", "CHILL"],
   },
   {
     id: "CORE-CAOS-3",
@@ -759,12 +709,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago si gano un premio random en la radio?",
     options: [
-      { id: "A", label: "Doy discurso dramático en vivo" },
-      { id: "B", label: "Armo grupo para compartir el premio" },
-      { id: "C", label: "Lo intercambio por algo más fabuloso" },
-      { id: "D", label: "Lo guardo para plan loco futuro" }
+      { id: "A", label: "Doy discurso dramático en vivo", mood: "CHILL" },
+      { id: "B", label: "Armo grupo para compartir el premio", mood: "SPICY" },
+      { id: "C", label: "Lo intercambio por algo más fabuloso", mood: "DLUXE" },
+      { id: "D", label: "Lo guardo para plan loco futuro", mood: "URBAN" }
     ],
-    moods: ["SPICY", "DLUXE", "ARTSY"],
   },
   {
     id: "CORE-CAOS-4",
@@ -774,12 +723,11 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago si mi crush comparte mi meme viejo vergonzoso?",
     options: [
-      { id: "A", label: "Lo remixo y lo subo con orgullo" },
-      { id: "B", label: "Finjo que era estrategia viral" },
-      { id: "C", label: "Le respondo con meme aún más ridículo" },
-      { id: "D", label: "Me escondo un día y vuelvo con outfit épico" }
+      { id: "A", label: "Lo remixo y lo subo con orgullo", mood: "CHILL" },
+      { id: "B", label: "Finjo que era estrategia viral", mood: "SPICY" },
+      { id: "C", label: "Le respondo con meme aún más ridículo", mood: "DLUXE" },
+      { id: "D", label: "Me escondo un día y vuelvo con outfit épico", mood: "URBAN" }
     ],
-    moods: ["SPICY", "URBAN", "DLUXE"],
   },
   {
     id: "CORE-CAOS-5",
@@ -789,11 +737,10 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     spicyLevel: "SOFT",
     text: "¿Qué hago si me invitan a un plan en un lugar que no existe en Google Maps?",
     options: [
-      { id: "A", label: "Voy igual, confío en la aventura" },
-      { id: "B", label: "Investigo como detective y mando ubicación" },
-      { id: "C", label: "Propongo cambiarlo por rooftop conocido" },
-      { id: "D", label: "Armo mapa ilustrado siguiendo intuición" }
+      { id: "A", label: "Voy igual, confío en la aventura", mood: "CHILL" },
+      { id: "B", label: "Investigo como detective y mando ubicación", mood: "SPICY" },
+      { id: "C", label: "Propongo cambiarlo por rooftop conocido", mood: "DLUXE" },
+      { id: "D", label: "Armo mapa ilustrado siguiendo intuición", mood: "URBAN" }
     ],
-    moods: ["URBAN", "ARTSY", "SPICY"],
   },
 ];

@@ -40,6 +40,16 @@ const shuffleArray = <T,>(items: T[]): T[] => {
   return clone;
 };
 
+const findMoodForAnswer = (
+  pregunta: VibesQuestion,
+  opcionId?: string
+): VibesMood | null => {
+  if (!opcionId) {
+    return null;
+  }
+  return pregunta.options.find((opcion) => opcion.id === opcionId)?.mood ?? null;
+};
+
 const selectDefaultQuestions = (): VibesQuestion[] => {
   const base = VIBES_QUESTION_LIBRARY.filter((pregunta) => {
     const isEnabled = pregunta.isEnabled ?? true;
@@ -160,12 +170,13 @@ export default function VibesTestLanding(): JSX.Element {
   const moodTotals = useMemo(() => {
     const totals = createMoodScoreMap();
     preguntasDelJuego.forEach((pregunta) => {
-      pregunta.moods?.forEach((mood) => {
+      const mood = findMoodForAnswer(pregunta, respuestasJugador[pregunta.id]);
+      if (mood) {
         totals[mood] += 1;
-      });
+      }
     });
     return totals;
-  }, [preguntasDelJuego]);
+  }, [preguntasDelJuego, respuestasJugador]);
 
   const nombreJugadorDisplay = useMemo(
     () => (nombreJugador.trim().length > 0 ? nombreJugador.trim() : "Personaje del Día™"),
@@ -224,12 +235,14 @@ export default function VibesTestLanding(): JSX.Element {
     let puntuacion = 0;
 
     preguntasDelJuego.forEach((pregunta) => {
-      const acierto = respuestasJugador[pregunta.id] === respuestasAmigx[pregunta.id];
+      const respuestaJugadorPregunta = respuestasJugador[pregunta.id];
+      const acierto = respuestaJugadorPregunta === respuestasAmigx[pregunta.id];
       if (acierto) {
         puntuacion += 1;
-        pregunta.moods?.forEach((mood) => {
+        const mood = findMoodForAnswer(pregunta, respuestaJugadorPregunta);
+        if (mood) {
           moodMatches[mood] += 1;
-        });
+        }
       }
     });
 
