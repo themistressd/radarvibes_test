@@ -12,7 +12,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Pop glitter con coreografía imaginaria", mood: "CHILL" },
       { id: "B", label: "Neo soul suave para despertarme sin drama", mood: "SPICY" },
       { id: "C", label: "Reggaetón clásico para sentirme en after", mood: "DLUXE" },
-      { id: "D", label: "Indie llorón para saborear la nostalgia", mood: "URBAN" }
+      { id: "D", label: "Indie llorón para saborear la nostalgia", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -26,7 +27,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Me tiro cinco minutos a escuchar mi respiración", mood: "CHILL" },
       { id: "B", label: "Mando nota de voz épica contando el drama", mood: "SPICY" },
       { id: "C", label: "Busco un espejo y practico mi cara de diva", mood: "DLUXE" },
-      { id: "D", label: "Salgo a caminar y me creo videoclip urbano", mood: "URBAN" }
+      { id: "D", label: "Salgo a caminar y me creo videoclip urbano", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -40,7 +42,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Mate o té con galletas caseras mood abuela", mood: "CHILL" },
       { id: "B", label: "Bubble tea con toppings extra porque me lo merezco", mood: "SPICY" },
       { id: "C", label: "Sandwich improvisado con todo lo de la heladera", mood: "DLUXE" },
-      { id: "D", label: "Fruta cortada cute que subo a stories", mood: "URBAN" }
+      { id: "D", label: "Fruta cortada cute que subo a stories", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -54,7 +57,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Me premio con un capricho fashion después", mood: "CHILL" },
       { id: "B", label: "Pido compañía por videollamada para charlar mientras", mood: "SPICY" },
       { id: "C", label: "Pongo cronómetro y lo vuelvo desafío conmigo", mood: "DLUXE" },
-      { id: "D", label: "Creo una playlist dramática y finjo que soy protagonista", mood: "URBAN" }
+      { id: "D", label: "Creo una playlist dramática y finjo que soy protagonista", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -68,7 +72,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Series largas, mantita y delivery comfort", mood: "CHILL" },
       { id: "B", label: "Paseo artístico con outfit pintoresco", mood: "SPICY" },
       { id: "C", label: "Brunch casero con música vintage", mood: "DLUXE" },
-      { id: "D", label: "Ruta de feria y puestos del barrio", mood: "URBAN" }
+      { id: "D", label: "Ruta de feria y puestos del barrio", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -82,7 +87,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "\"Con calma, pero brillando\"", mood: "CHILL" },
       { id: "B", label: "\"Somos drama, pero del bueno\"", mood: "SPICY" },
       { id: "C", label: "\"Hazlo a tu manera aunque tiemble todo\"", mood: "DLUXE" },
-      { id: "D", label: "\"Que se note tu vibe urbana aunque sea lunes\"", mood: "URBAN" }
+      { id: "D", label: "\"Que se note tu vibe urbana aunque sea lunes\"", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -96,7 +102,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Me compro algo tech o gadget para elevar rutina", mood: "CHILL" },
       { id: "B", label: "Invierto en alguna experiencia artística", mood: "SPICY" },
       { id: "C", label: "Armo fondo de viajes improvisados", mood: "DLUXE" },
-      { id: "D", label: "Lo guardo prolijo porque soy previsora", mood: "URBAN" }
+      { id: "D", label: "Lo guardo prolijo porque soy previsora", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -110,7 +117,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Sporty glam con brillo estratégico", mood: "CHILL" },
       { id: "B", label: "Vintage rebuscado que parece casual", mood: "SPICY" },
       { id: "C", label: "Minimal urbano con toques de plata", mood: "DLUXE" },
-      { id: "D", label: "Artsy collage con colores imposibles", mood: "URBAN" }
+      { id: "D", label: "Artsy collage con colores imposibles", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -124,7 +132,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Apagar todo y hacer journaling con velitas", mood: "CHILL" },
       { id: "B", label: "Videollamada con mi red de contención", mood: "SPICY" },
       { id: "C", label: "Bailar mis dramas frente al espejo", mood: "DLUXE" },
-      { id: "D", label: "Salir a un rooftop a respirar ciudad", mood: "URBAN" }
+      { id: "D", label: "Salir a un rooftop a respirar ciudad", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -138,7 +147,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Sosteniendo el glamour con café", mood: "CHILL" },
       { id: "B", label: "En modo chill, pero con radar encendido", mood: "SPICY" },
       { id: "C", label: "Planeando el próximo caos divertido", mood: "DLUXE" },
-      { id: "D", label: "Soñando proyectos raros todo el día", mood: "URBAN" }
+      { id: "D", label: "Soñando proyectos raros todo el día", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -152,7 +162,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Me hago ondas suaves y aroma a vainilla", mood: "CHILL" },
       { id: "B", label: "Le doy volumen dramático como estrella pop", mood: "SPICY" },
       { id: "C", label: "Lo dejo messy chic con gorra urbana", mood: "DLUXE" },
-      { id: "D", label: "Juego con accesorios artsy rarísimos", mood: "URBAN" }
+      { id: "D", label: "Juego con accesorios artsy rarísimos", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -166,7 +177,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Los organizo con calma y respondo con mate", mood: "CHILL" },
       { id: "B", label: "Hago maratón de audios sincericidas", mood: "SPICY" },
       { id: "C", label: "Los limpio con respuestas rápidas y emojis", mood: "DLUXE" },
-      { id: "D", label: "Dejo que mi mood artsy decida un meme", mood: "URBAN" }
+      { id: "D", label: "Dejo que mi mood artsy decida un meme", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -180,7 +192,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Busco la playlist y me hago DJ honoraria", mood: "CHILL" },
       { id: "B", label: "Me pego a la barra y charlo con quien caiga", mood: "SPICY" },
       { id: "C", label: "Analizo el ambiente hasta encontrar mi gente", mood: "DLUXE" },
-      { id: "D", label: "Llego con historia dramática para romper el hielo", mood: "URBAN" }
+      { id: "D", label: "Llego con historia dramática para romper el hielo", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -194,7 +207,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Respondo con resumen ejecutivo y sticker icónico", mood: "CHILL" },
       { id: "B", label: "Mando audio largo para poner orden dramático", mood: "SPICY" },
       { id: "C", label: "Leo todo en silencio y reacciono con corazones", mood: "DLUXE" },
-      { id: "D", label: "Propongo juntada urgente para charlar en vivo", mood: "URBAN" }
+      { id: "D", label: "Propongo juntada urgente para charlar en vivo", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -208,7 +222,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Animadora que reparte micrófono y aplausos", mood: "CHILL" },
       { id: "B", label: "Diva dramática que canta baladas con acting", mood: "SPICY" },
       { id: "C", label: "Directora creativa que arma dúos inesperados", mood: "DLUXE" },
-      { id: "D", label: "Reportera stories mostrando backstage", mood: "URBAN" }
+      { id: "D", label: "Reportera stories mostrando backstage", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -222,7 +237,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Propongo videollamada improvisada", mood: "CHILL" },
       { id: "B", label: "Organizo plan alternativo con quien esté libre", mood: "SPICY" },
       { id: "C", label: "Aprovecho para noche de autocuidado deluxe", mood: "DLUXE" },
-      { id: "D", label: "Salgo sola y hago amigos nuevos", mood: "URBAN" }
+      { id: "D", label: "Salgo sola y hago amigos nuevos", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -236,7 +252,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Le mando audio largo lleno de amor", mood: "CHILL" },
       { id: "B", label: "Organizo kit de memes personalizados", mood: "SPICY" },
       { id: "C", label: "Armo tarde tranquila con té y charlas", mood: "DLUXE" },
-      { id: "D", label: "Lo secuestro para paseo sorpresa por la ciudad", mood: "URBAN" }
+      { id: "D", label: "Lo secuestro para paseo sorpresa por la ciudad", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -250,7 +267,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Juegos rompehielo con mucho glitter", mood: "CHILL" },
       { id: "B", label: "Hilos de historias que los conectan", mood: "SPICY" },
       { id: "C", label: "Música curada para que fluyan solos", mood: "DLUXE" },
-      { id: "D", label: "Tour urbano mostrando mis spots favoritos", mood: "URBAN" }
+      { id: "D", label: "Tour urbano mostrando mis spots favoritos", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -264,7 +282,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Escucho y doy respuesta zen sin juzgar", mood: "CHILL" },
       { id: "B", label: "Hago análisis dramático con referencias de series", mood: "SPICY" },
       { id: "C", label: "Propongo plan para distraer y volver a brillar", mood: "DLUXE" },
-      { id: "D", label: "Les tiro playlist terapéutica y memes", mood: "URBAN" }
+      { id: "D", label: "Les tiro playlist terapéutica y memes", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -278,7 +297,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Tour gastronómico por mi barrio", mood: "CHILL" },
       { id: "B", label: "Velada de spa casero con mascarillas", mood: "SPICY" },
       { id: "C", label: "Galería, feria y fotos artsy por la ciudad", mood: "DLUXE" },
-      { id: "D", label: "Fiestón casero con luces y karaoke", mood: "URBAN" }
+      { id: "D", label: "Fiestón casero con luces y karaoke", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -292,7 +312,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Entro suave con stickers tiernos", mood: "CHILL" },
       { id: "B", label: "Lanzo meme para marcar mi presencia", mood: "SPICY" },
       { id: "C", label: "Organizo video call para entender el drama", mood: "DLUXE" },
-      { id: "D", label: "Leo todo y respondo con resumen diplomático", mood: "URBAN" }
+      { id: "D", label: "Leo todo y respondo con resumen diplomático", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -306,7 +327,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Sonrisa calmada y charla tranquila", mood: "CHILL" },
       { id: "B", label: "Entro con chiste y guiño dramático", mood: "SPICY" },
       { id: "C", label: "Lo investigo en modo periodista del barrio", mood: "DLUXE" },
-      { id: "D", label: "Me hago la misteriosa y dejo intriga", mood: "URBAN" }
+      { id: "D", label: "Me hago la misteriosa y dejo intriga", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -320,7 +342,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Organizo mini brindis con glitter", mood: "CHILL" },
       { id: "B", label: "Creo collage de fotos para redes", mood: "SPICY" },
       { id: "C", label: "Les escribo carta dramática de amor", mood: "DLUXE" },
-      { id: "D", label: "Armo excursión urbana sorpresa", mood: "URBAN" }
+      { id: "D", label: "Armo excursión urbana sorpresa", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -334,7 +357,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Hago doodle interminable hasta conseguir fecha", mood: "CHILL" },
       { id: "B", label: "Lanzo ultimátum cariñoso con fecha fija", mood: "SPICY" },
       { id: "C", label: "Propongo retiro chill con pijamas", mood: "DLUXE" },
-      { id: "D", label: "Planifico road trip urbano con playlist", mood: "URBAN" }
+      { id: "D", label: "Planifico road trip urbano con playlist", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -348,7 +372,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Respiro, me enfoco en mis cosas y lo suelto", mood: "CHILL" },
       { id: "B", label: "Armo teoría conspirativa con memes", mood: "SPICY" },
       { id: "C", label: "Escribo respuesta intensa y la dejo en borrador", mood: "DLUXE" },
-      { id: "D", label: "Subo story sutil para recordar mi existencia", mood: "URBAN" }
+      { id: "D", label: "Subo story sutil para recordar mi existencia", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -362,7 +387,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Lo hablo directo con honestidad chill", mood: "CHILL" },
       { id: "B", label: "Planifico entrada triunfal al próximo plan", mood: "SPICY" },
       { id: "C", label: "Armo fiesta alternativa ese mismo día", mood: "DLUXE" },
-      { id: "D", label: "Escribo diario dramático y después sigo", mood: "URBAN" }
+      { id: "D", label: "Escribo diario dramático y después sigo", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -376,7 +402,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Lanzo pregunta profunda pero suave", mood: "CHILL" },
       { id: "B", label: "Cuento anécdota absurda que siempre funciona", mood: "SPICY" },
       { id: "C", label: "Pongo juego express de verdad o reto light", mood: "DLUXE" },
-      { id: "D", label: "Dejo que el momento respire y observo", mood: "URBAN" }
+      { id: "D", label: "Dejo que el momento respire y observo", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -390,7 +417,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Mando audio diplomático para mediar", mood: "CHILL" },
       { id: "B", label: "Organizo reunión urgente con mate", mood: "SPICY" },
       { id: "C", label: "Dejo que se enfríe y luego hablo uno a uno", mood: "DLUXE" },
-      { id: "D", label: "Creo documento compartido con la cronología", mood: "URBAN" }
+      { id: "D", label: "Creo documento compartido con la cronología", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -404,7 +432,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Respondo con ironía cariñosa", mood: "CHILL" },
       { id: "B", label: "Le pregunto directo qué quiso decir", mood: "SPICY" },
       { id: "C", label: "Ignoro y convierto el tema en chiste", mood: "DLUXE" },
-      { id: "D", label: "Lo saco a bailar para cambiar la energía", mood: "URBAN" }
+      { id: "D", label: "Lo saco a bailar para cambiar la energía", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -418,7 +447,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Lo guardo en caja fuerte hasta tener contexto", mood: "CHILL" },
       { id: "B", label: "Lo comparto solo con mi comité de confianza", mood: "SPICY" },
       { id: "C", label: "Espero y lo transformo en meme cuando pase", mood: "DLUXE" },
-      { id: "D", label: "Lo uso para producir tertulia dramática controlada", mood: "URBAN" }
+      { id: "D", label: "Lo uso para producir tertulia dramática controlada", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -432,7 +462,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Acepto la señal y me enfoco en mí", mood: "CHILL" },
       { id: "B", label: "Lanzo mensaje final con cierre dramático", mood: "SPICY" },
       { id: "C", label: "Lo cuento como novela en el grupo", mood: "DLUXE" },
-      { id: "D", label: "Me invento un plan épico para olvidar", mood: "URBAN" }
+      { id: "D", label: "Me invento un plan épico para olvidar", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -446,7 +477,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Me permito llorar y escribo reseña sensible", mood: "CHILL" },
       { id: "B", label: "Armo watch party para debatir el drama", mood: "SPICY" },
       { id: "C", label: "Cambio a reality divertido para equilibrar", mood: "DLUXE" },
-      { id: "D", label: "Dibujo fanart para sublimar el dolor", mood: "URBAN" }
+      { id: "D", label: "Dibujo fanart para sublimar el dolor", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -460,7 +492,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Reacomodo con calma y priorizo autocuidado", mood: "CHILL" },
       { id: "B", label: "Declaro emergencia y pido ayuda", mood: "SPICY" },
       { id: "C", label: "Cancelo algo y lo convierto en meme", mood: "DLUXE" },
-      { id: "D", label: "Hago horario deluxe con bloques glam", mood: "URBAN" }
+      { id: "D", label: "Hago horario deluxe con bloques glam", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -474,7 +507,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Armo watch party diferida con mis comentarios", mood: "CHILL" },
       { id: "B", label: "Entro con outfit exagerado al after", mood: "SPICY" },
       { id: "C", label: "Acepto FOMO y planifico el próximo con tiempo", mood: "DLUXE" },
-      { id: "D", label: "Hago hilo en redes con análisis dramático", mood: "URBAN" }
+      { id: "D", label: "Hago hilo en redes con análisis dramático", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -488,7 +522,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Me río y documento el caos", mood: "CHILL" },
       { id: "B", label: "Reorganizo con plan B brillante", mood: "SPICY" },
       { id: "C", label: "Hago catarsis en stories con filtros", mood: "DLUXE" },
-      { id: "D", label: "Lo transformo en micro performance", mood: "URBAN" }
+      { id: "D", label: "Lo transformo en micro performance", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -502,7 +537,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Pongo límites suaves y vuelvo a mi manta", mood: "CHILL" },
       { id: "B", label: "Los sumo a mi ritual deluxe", mood: "SPICY" },
       { id: "C", label: "Les delego tarea para canalizar", mood: "DLUXE" },
-      { id: "D", label: "Armo mini show para justificar la interrupción", mood: "URBAN" }
+      { id: "D", label: "Armo mini show para justificar la interrupción", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -516,7 +552,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Ver realities de reformas hasta dormirme", mood: "CHILL" },
       { id: "B", label: "Escuchar cumbias viejas a todo volumen", mood: "SPICY" },
       { id: "C", label: "Coleccionar revistas con perfume", mood: "DLUXE" },
-      { id: "D", label: "Seguir fanfics raros en foros secretos", mood: "URBAN" }
+      { id: "D", label: "Seguir fanfics raros en foros secretos", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -530,7 +567,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Cambio mi foto de perfil sin aviso", mood: "CHILL" },
       { id: "B", label: "Me pierdo en librería y subo stories crípticos", mood: "SPICY" },
       { id: "C", label: "Salgo a caminar de noche escuchando boleros", mood: "DLUXE" },
-      { id: "D", label: "Escribo poesía en notas y no la muestro", mood: "URBAN" }
+      { id: "D", label: "Escribo poesía en notas y no la muestro", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -544,7 +582,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Tener café librería en la costa", mood: "CHILL" },
       { id: "B", label: "Ser coreógrafa de giras pop", mood: "SPICY" },
       { id: "C", label: "Vivir en van y hacer murales", mood: "DLUXE" },
-      { id: "D", label: "Ser crítica secreta de restaurantes", mood: "URBAN" }
+      { id: "D", label: "Ser crítica secreta de restaurantes", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -558,7 +597,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Las anoto en cuaderno lleno de stickers", mood: "CHILL" },
       { id: "B", label: "Les mando audio a mis confidentes nocturnos", mood: "SPICY" },
       { id: "C", label: "Armo moodboard secreto en Pinterest", mood: "DLUXE" },
-      { id: "D", label: "Las convierto en hilo anónimo", mood: "URBAN" }
+      { id: "D", label: "Las convierto en hilo anónimo", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -572,7 +612,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Modo ninja: solo stories anónimas", mood: "CHILL" },
       { id: "B", label: "Likeo fotos antiguas para provocar", mood: "SPICY" },
       { id: "C", label: "Investigo amistades en modo detective", mood: "DLUXE" },
-      { id: "D", label: "Guardo posts para un collage secreto", mood: "URBAN" }
+      { id: "D", label: "Guardo posts para un collage secreto", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -586,7 +627,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Tickets de conciertos y cines", mood: "CHILL" },
       { id: "B", label: "Cartas y notas manuscritas", mood: "SPICY" },
       { id: "C", label: "Fotos polaroid de noches urbanas", mood: "DLUXE" },
-      { id: "D", label: "Trinkets brillantes de mercaditos", mood: "URBAN" }
+      { id: "D", label: "Trinkets brillantes de mercaditos", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -600,7 +642,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Organizo spa nocturno con playlists slow", mood: "CHILL" },
       { id: "B", label: "Produzco coreografía secreta en el living", mood: "SPICY" },
       { id: "C", label: "Pinto o escribo hasta tarde", mood: "DLUXE" },
-      { id: "D", label: "Hago tour nocturno por deliverys raros", mood: "URBAN" }
+      { id: "D", label: "Hago tour nocturno por deliverys raros", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -614,7 +657,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Imitar voces de celebridades", mood: "CHILL" },
       { id: "B", label: "Leer cartas del tarot intuitivo", mood: "SPICY" },
       { id: "C", label: "Encontrar ofertas callejeras increíbles", mood: "DLUXE" },
-      { id: "D", label: "Hacer playlists que curan corazones", mood: "URBAN" }
+      { id: "D", label: "Hacer playlists que curan corazones", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -628,7 +672,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Mantra frente al espejo con luz cálida", mood: "CHILL" },
       { id: "B", label: "Revisión de memes compartidos", mood: "SPICY" },
       { id: "C", label: "Paseo corto por la ciudad para activar", mood: "DLUXE" },
-      { id: "D", label: "Creo perfume casero con aceites", mood: "URBAN" }
+      { id: "D", label: "Creo perfume casero con aceites", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -642,7 +687,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Borro apps y me voy al parque con libro", mood: "CHILL" },
       { id: "B", label: "Solo subo fotos de nubes y pistas crípticas", mood: "SPICY" },
       { id: "C", label: "Le doy mis claves a mi hermana y listo", mood: "DLUXE" },
-      { id: "D", label: "Activo modo lurker sin interactuar", mood: "URBAN" }
+      { id: "D", label: "Activo modo lurker sin interactuar", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -656,7 +702,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Polaroid para capturar vibes", mood: "CHILL" },
       { id: "B", label: "Brillos y glitter para emergencias", mood: "SPICY" },
       { id: "C", label: "Un cuaderno con mis sueños", mood: "DLUXE" },
-      { id: "D", label: "Snacks misteriosos para compartir", mood: "URBAN" }
+      { id: "D", label: "Snacks misteriosos para compartir", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -670,7 +717,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Listas infinitas con stickers", mood: "CHILL" },
       { id: "B", label: "Clasificar playlists por colores", mood: "SPICY" },
       { id: "C", label: "Ordenar closet según vibes", mood: "DLUXE" },
-      { id: "D", label: "Guardar cajas con recuerdos por tema", mood: "URBAN" }
+      { id: "D", label: "Guardar cajas con recuerdos por tema", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -684,7 +732,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Sonrío, saludo y agarro mi carrito digna", mood: "CHILL" },
       { id: "B", label: "Hago comentario random y sigo bailando", mood: "SPICY" },
       { id: "C", label: "Los ignoro y me escondo en pasillo de snacks", mood: "DLUXE" },
-      { id: "D", label: "Les recomiendo un producto como influencer", mood: "URBAN" }
+      { id: "D", label: "Les recomiendo un producto como influencer", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -698,7 +747,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Lanzo velas y convierto todo en ritual místico", mood: "CHILL" },
       { id: "B", label: "Armo rave acústica con utensilios", mood: "SPICY" },
       { id: "C", label: "Improviso picnic en el piso con historias", mood: "DLUXE" },
-      { id: "D", label: "Transmito en vivo el caos para los ausentes", mood: "URBAN" }
+      { id: "D", label: "Transmito en vivo el caos para los ausentes", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -712,7 +762,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Doy discurso dramático en vivo", mood: "CHILL" },
       { id: "B", label: "Armo grupo para compartir el premio", mood: "SPICY" },
       { id: "C", label: "Lo intercambio por algo más fabuloso", mood: "DLUXE" },
-      { id: "D", label: "Lo guardo para plan loco futuro", mood: "URBAN" }
+      { id: "D", label: "Lo guardo para plan loco futuro", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -726,7 +777,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Lo remixo y lo subo con orgullo", mood: "CHILL" },
       { id: "B", label: "Finjo que era estrategia viral", mood: "SPICY" },
       { id: "C", label: "Le respondo con meme aún más ridículo", mood: "DLUXE" },
-      { id: "D", label: "Me escondo un día y vuelvo con outfit épico", mood: "URBAN" }
+      { id: "D", label: "Me escondo un día y vuelvo con outfit épico", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
   {
@@ -740,7 +792,8 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
       { id: "A", label: "Voy igual, confío en la aventura", mood: "CHILL" },
       { id: "B", label: "Investigo como detective y mando ubicación", mood: "SPICY" },
       { id: "C", label: "Propongo cambiarlo por rooftop conocido", mood: "DLUXE" },
-      { id: "D", label: "Armo mapa ilustrado siguiendo intuición", mood: "URBAN" }
+      { id: "D", label: "Armo mapa ilustrado siguiendo intuición", mood: "URBAN" },
+      { id: "E", label: "Lo reinterpreto en clave artsy", mood: "ARTSY" },
     ],
   },
 ];

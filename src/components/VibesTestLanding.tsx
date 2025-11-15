@@ -105,6 +105,39 @@ const createMoodScoreMap = (): MoodScoreMap =>
     return acc;
   }, {} as MoodScoreMap);
 
+const calculateMoodDistribution = (counts: MoodScoreMap): MoodScoreMap => {
+  const total = VIBES_MOODS.reduce((sum, mood) => sum + counts[mood], 0);
+  if (total === 0) {
+    return createMoodScoreMap();
+  }
+
+  const calculations = VIBES_MOODS.map((mood) => {
+    const rawPercent = (counts[mood] / total) * 100;
+    const percent = Math.floor(rawPercent);
+    return { mood, percent, remainder: rawPercent - percent };
+  });
+
+  const distribution = createMoodScoreMap();
+  calculations.forEach(({ mood, percent }) => {
+    distribution[mood] = percent;
+  });
+
+  let assigned = calculations.reduce((sum, item) => sum + item.percent, 0);
+  const sortedByRemainder = [...calculations].sort(
+    (a, b) => b.remainder - a.remainder
+  );
+
+  let index = 0;
+  while (assigned < 100) {
+    const target = sortedByRemainder[index % sortedByRemainder.length];
+    distribution[target.mood] += 1;
+    assigned += 1;
+    index += 1;
+  }
+
+  return distribution;
+};
+
 const MOOD_STYLES: Record<
   VibesMood,
   { label: string; emoji: string; chipClass: string; percentClass: string }
@@ -490,7 +523,11 @@ export default function VibesTestLanding(): JSX.Element {
                       Todavía no hay retadorxs. Invitá a alguien a intentar.
                     </p>
                   ) : (
-                    rankingAmigxs.map((resultado, indice) => (
+                    rankingAmigxs.map((resultado, indice) => {
+                      const moodDistribution = calculateMoodDistribution(
+                        resultado.moodMatches
+                      );
+                      return (
                       <div
                         key={`${resultado.nombre}-${indice}`}
                         className={`rounded-2xl border p-6 shadow-sm transition ${
@@ -522,7 +559,7 @@ export default function VibesTestLanding(): JSX.Element {
                             if (!totalMood) {
                               return null;
                             }
-                            const percent = Math.round((resultado.moodMatches[mood] / totalMood) * 100);
+                            const percent = moodDistribution[mood];
                             const { chipClass, emoji, label, percentClass } = MOOD_STYLES[mood];
                             return (
                               <div
@@ -539,7 +576,8 @@ export default function VibesTestLanding(): JSX.Element {
                           })}
                         </div>
                       </div>
-                    ))
+                    );
+                    })
                   )}
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
