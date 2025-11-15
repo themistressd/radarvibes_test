@@ -1,333 +1,164 @@
-import { useMemo, useState } from "react";
-import { VIBES_QUESTION_LIBRARY } from "../data/vibesQuestionLibrary";
-import type { VibesMood, VibesQuestion } from "../vibes/types";
+import { useEffect, useMemo, useState } from "react";
+import {
+  calculateFriendResult,
+  getCoreQuestions,
+  DEFAULT_QUESTION_COUNT,
+} from "../vibes/gameUtils";
+import { AnswersMap, MoodStats, VibesMood, VibesQuestion } from "../vibes/types";
 
 type QuizStep = "intro" | "self" | "friendIntro" | "friendQuiz" | "results";
 
-type AnswerMap = Record<string, string>;
-
-type MoodScoreMap = Record<VibesMood, number>;
-
 type FriendResult = {
-  nombre: string;
-  respuestas: AnswerMap;
-  puntuacion: number;
-  compatibilidad: number;
-  nivel: string;
-  moodMatches: MoodScoreMap;
+  name: string;
+  answers: AnswersMap;
+  score: number;
+  level: string;
+  moodStats: MoodStats; // % de vibes ya normalizados
 };
 
-const QUESTION_LIMIT = 9;
-
-const VIBES_MOODS: VibesMood[] = ["CHILL", "SPICY", "DLUXE", "URBAN", "ARTSY"];
-
-const DEFAULT_PACK: VibesQuestion["packId"] = "CORE_VIBES";
-const DEFAULT_SPICY_LEVEL: VibesQuestion["spicyLevel"] = "SOFT";
-const CATEGORY_ORDER: VibesQuestion["category"][] = [
-  "VIBE_ESENCIA",
-  "VIBE_SOCIAL",
-  "VIBE_DRAMA",
-  "VIBE_SECRETA",
-  "VIBE_CAOS",
-];
-
-const shuffleArray = <T,>(items: T[]): T[] => {
-  const clone = [...items];
-  for (let index = clone.length - 1; index > 0; index -= 1) {
-    const swapIndex = Math.floor(Math.random() * (index + 1));
-    [clone[index], clone[swapIndex]] = [clone[swapIndex], clone[index]];
-  }
-  return clone;
+const moodLabels: Record<VibesMood, string> = {
+  CHILL: "Chill",
+  SPICY: "Spicy",
+  DLUXE: "DLuxe",
+  URBAN: "Urban",
+  ARTSY: "Artsy",
 };
 
-const findMoodForAnswer = (
-  pregunta: VibesQuestion,
-  opcionId?: string
-): VibesMood | null => {
-  if (!opcionId) {
-    return null;
-  }
-  return pregunta.options.find((opcion) => opcion.id === opcionId)?.mood ?? null;
-};
-
-const selectDefaultQuestions = (): VibesQuestion[] => {
-  const base = VIBES_QUESTION_LIBRARY.filter((pregunta) => {
-    const isEnabled = pregunta.isEnabled ?? true;
-    return (
-      pregunta.packId === DEFAULT_PACK &&
-      pregunta.spicyLevel === DEFAULT_SPICY_LEVEL &&
-      isEnabled
-    );
-  });
-
-  const dataset = base.length >= QUESTION_LIMIT ? base : VIBES_QUESTION_LIBRARY;
-  const shuffled = shuffleArray(dataset);
-
-  const grouped = new Map<VibesQuestion["category"], VibesQuestion[]>();
-  shuffled.forEach((question) => {
-    const existing = grouped.get(question.category) ?? [];
-    existing.push(question);
-    grouped.set(question.category, existing);
-  });
-
-  const selected: VibesQuestion[] = [];
-  const usedIds = new Set<string>();
-
-  CATEGORY_ORDER.forEach((category) => {
-    const bucket = grouped.get(category);
-    if (!bucket?.length) {
-      return;
-    }
-    const choice = bucket.shift()!;
-    if (!usedIds.has(choice.id)) {
-      selected.push(choice);
-      usedIds.add(choice.id);
-    }
-  });
-
-  for (const question of shuffled) {
-    if (selected.length >= QUESTION_LIMIT) {
-      break;
-    }
-    if (usedIds.has(question.id)) {
-      continue;
-    }
-    selected.push(question);
-    usedIds.add(question.id);
-  }
-
-  return selected.slice(0, QUESTION_LIMIT);
-};
-
-const createMoodScoreMap = (): MoodScoreMap =>
-  VIBES_MOODS.reduce((acc, mood) => {
-    acc[mood] = 0;
-    return acc;
-  }, {} as MoodScoreMap);
-
-const calculateMoodDistribution = (counts: MoodScoreMap): MoodScoreMap => {
-  const total = VIBES_MOODS.reduce((sum, mood) => sum + counts[mood], 0);
-  if (total === 0) {
-    return createMoodScoreMap();
-  }
-
-  const calculations = VIBES_MOODS.map((mood) => {
-    const rawPercent = (counts[mood] / total) * 100;
-    const percent = Math.floor(rawPercent);
-    return { mood, percent, remainder: rawPercent - percent };
-  });
-
-  const distribution = createMoodScoreMap();
-  calculations.forEach(({ mood, percent }) => {
-    distribution[mood] = percent;
-  });
-
-  let assigned = calculations.reduce((sum, item) => sum + item.percent, 0);
-  const sortedByRemainder = [...calculations].sort(
-    (a, b) => b.remainder - a.remainder
-  );
-
-  let index = 0;
-  while (assigned < 100) {
-    const target = sortedByRemainder[index % sortedByRemainder.length];
-    distribution[target.mood] += 1;
-    assigned += 1;
-    index += 1;
-  }
-
-  return distribution;
-};
-
-const MOOD_STYLES: Record<
-  VibesMood,
-  { label: string; emoji: string; chipClass: string; percentClass: string }
-> = {
-  CHILL: {
-    label: "Chill",
-    emoji: "🌊",
-    chipClass: "border-teal-200 bg-teal-50 text-teal-900",
-    percentClass: "text-teal-600",
-  },
-  SPICY: {
-    label: "Spicy",
-    emoji: "🌶️",
-    chipClass: "border-red-200 bg-red-50 text-red-900",
-    percentClass: "text-red-600",
-  },
-  DLUXE: {
-    label: "DLuxe",
-    emoji: "💎",
-    chipClass: "border-fuchsia-200 bg-fuchsia-50 text-fuchsia-900",
-    percentClass: "text-fuchsia-600",
-  },
-  URBAN: {
-    label: "Urban",
-    emoji: "🚦",
-    chipClass: "border-emerald-200 bg-emerald-50 text-emerald-900",
-    percentClass: "text-emerald-600",
-  },
-  ARTSY: {
-    label: "Artsy",
-    emoji: "🎨",
-    chipClass: "border-indigo-200 bg-indigo-50 text-indigo-900",
-    percentClass: "text-indigo-600",
-  },
-};
-
-function calcularNivelVibes(puntuacion: number): string {
-  if (puntuacion >= 8) {
-    return "VIBE SUPREMA 💫";
-  }
-  if (puntuacion >= 6) {
-    return "VIBE TELEPÁTICA 🔮";
-  }
-  if (puntuacion >= 4) {
-    return "VIBE SOSPECHOSA 👀";
-  }
-  return "VIBE INVENTADA 🤡";
+function getTopMoods(moodStats: MoodStats, max: number = 2): VibesMood[] {
+  const entries = Object.entries(moodStats) as [VibesMood, number][];
+  const sorted = entries.sort((a, b) => b[1] - a[1]);
+  return sorted.filter(([, value]) => value > 0).slice(0, max).map(([m]) => m);
 }
 
+const moodAccent: Record<VibesMood, string> = {
+  CHILL: "bg-teal-100 text-teal-800 border-teal-200",
+  SPICY: "bg-red-100 text-red-800 border-red-200",
+  DLUXE: "bg-fuchsia-100 text-fuchsia-800 border-fuchsia-200",
+  URBAN: "bg-emerald-100 text-emerald-800 border-emerald-200",
+  ARTSY: "bg-indigo-100 text-indigo-800 border-indigo-200",
+};
+
+const levelCopy: Record<string, string> = {
+  "VIBE SUPREMA 💫": "Alma gemela vibratoria.",
+  "VIBE TELEPÁTICA 🔮": "Nos olemos el drama a kilómetros.",
+  "VIBE SOSPECHOSA 👀": "Te tengo calade, pero echas cuento.",
+  "VIBE INVENTADA 🤡": "Cari, ¿tú me conoces o te lo estás inventando?",
+};
+
 export default function VibesTestLanding(): JSX.Element {
-  const [preguntasDelJuego, setPreguntasDelJuego] = useState<VibesQuestion[]>(() =>
-    selectDefaultQuestions()
-  );
-  const [paso, setPaso] = useState<QuizStep>("intro");
-  const [nombreJugador, setNombreJugador] = useState("");
-  const [respuestasJugador, setRespuestasJugador] = useState<AnswerMap>({});
-  const [nombreAmigx, setNombreAmigx] = useState("");
-  const [respuestasAmigx, setRespuestasAmigx] = useState<AnswerMap>({});
-  const [rankingAmigxs, setRankingAmigxs] = useState<FriendResult[]>([]);
-  const [mensaje, setMensaje] = useState<string | null>(null);
+  const [questions, setQuestions] = useState<VibesQuestion[]>([]);
+  const [step, setStep] = useState<QuizStep>("intro");
+  const [playerName, setPlayerName] = useState("");
+  const [selfAnswers, setSelfAnswers] = useState<AnswersMap>({});
+  const [friendName, setFriendName] = useState("");
+  const [currentFriendAnswers, setCurrentFriendAnswers] = useState<AnswersMap>({});
+  const [friendResults, setFriendResults] = useState<FriendResult[]>([]);
+  const [message, setMessage] = useState<string | null>(null);
 
-  const totalPreguntas = preguntasDelJuego.length || 1;
-  const moodTotals = useMemo(() => {
-    const totals = createMoodScoreMap();
-    preguntasDelJuego.forEach((pregunta) => {
-      const mood = findMoodForAnswer(pregunta, respuestasJugador[pregunta.id]);
-      if (mood) {
-        totals[mood] += 1;
-      }
-    });
-    return totals;
-  }, [preguntasDelJuego, respuestasJugador]);
+  useEffect(() => {
+    setQuestions(getCoreQuestions(DEFAULT_QUESTION_COUNT));
+  }, []);
 
-  const nombreJugadorDisplay = useMemo(
-    () => (nombreJugador.trim().length > 0 ? nombreJugador.trim() : "Personaje del Día™"),
-    [nombreJugador]
+  const totalQuestions = questions.length || DEFAULT_QUESTION_COUNT;
+
+  const playerDisplay = useMemo(
+    () => (playerName.trim().length > 0 ? playerName.trim() : "Personaje del Día™"),
+    [playerName]
   );
 
-  const manejarRespuestaJugador = (preguntaId: string, opcionId: string) => {
-    setRespuestasJugador((prev) => ({ ...prev, [preguntaId]: opcionId }));
+  const handleSelfAnswer = (questionId: string, optionIndex: number) => {
+    setSelfAnswers((prev) => ({ ...prev, [questionId]: optionIndex }));
   };
 
-  const manejarRespuestaAmigx = (preguntaId: string, opcionId: string) => {
-    setRespuestasAmigx((prev) => ({ ...prev, [preguntaId]: opcionId }));
+  const handleFriendAnswer = (questionId: string, optionIndex: number) => {
+    setCurrentFriendAnswers((prev) => ({ ...prev, [questionId]: optionIndex }));
   };
 
-  const iniciarTestPropio = () => {
-    if (!nombreJugador.trim()) {
-      setMensaje("Ponle un nombre fabuloso al Personaje del Día™ ✨");
+  const startSelfQuiz = () => {
+    if (!playerName.trim()) {
+      setMessage("Ponle un nombre fabuloso a tu personaje principal.");
       return;
     }
-    setMensaje("¡Vamos! Define tus vibes en nueve preguntas.");
-    setPaso("self");
+    if (questions.length === 0) {
+      setQuestions(getCoreQuestions(DEFAULT_QUESTION_COUNT));
+    }
+    setMessage("Cámara on. Define tus vibes en tiempo récord.");
+    setStep("self");
   };
 
-  const enviarTestPropio = () => {
-    const todasRespondidas = preguntasDelJuego.every(
-      (pregunta) => respuestasJugador[pregunta.id]
+  const submitSelfQuiz = () => {
+    const allAnswered = questions.every((q) => selfAnswers[q.id] !== undefined);
+    if (!allAnswered) {
+      setMessage("Responde todo para sellar tu vibra oficial del día.");
+      return;
+    }
+    setMessage(
+      "Confesionario cerrado. Ahora veamos qué tan bien te leen tus amigxs en este reality camp."
     );
-    if (!todasRespondidas) {
-      setMensaje("Responde todas las preguntas para sellar tus vibes.");
-      return;
-    }
-    setMensaje("¡Listo! Ahora desafía a tus amigxs.");
-    setPaso("friendIntro");
+    setStep("friendIntro");
   };
 
-  const iniciarTestAmigx = () => {
-    if (!nombreAmigx.trim()) {
-      setMensaje("Necesitamos el nombre del retador o retadora 💅");
+  const startFriendQuiz = () => {
+    if (!friendName.trim()) {
+      setMessage("Necesitamos el nombre del retador estrella del camp ✨");
       return;
     }
-    setMensaje(null);
-    setRespuestasAmigx({});
-    setPaso("friendQuiz");
+    setMessage(null);
+    setCurrentFriendAnswers({});
+    setStep("friendQuiz");
   };
 
-  const enviarTestAmigx = () => {
-    const todasRespondidas = preguntasDelJuego.every(
-      (pregunta) => respuestasAmigx[pregunta.id]
+  const submitFriendQuiz = () => {
+    const allAnswered = questions.every((q) => currentFriendAnswers[q.id] !== undefined);
+    if (!allAnswered) {
+      setMessage("Que conteste todo, aquí no hay comodines del público.");
+      return;
+    }
+
+    const { score, level, moodStats } = calculateFriendResult(
+      questions,
+      selfAnswers,
+      currentFriendAnswers
     );
-    if (!todasRespondidas) {
-      setMensaje("Que conteste todo, no vale soplar respuestas.");
-      return;
-    }
 
-    const moodMatches = createMoodScoreMap();
-    let puntuacion = 0;
-
-    preguntasDelJuego.forEach((pregunta) => {
-      const respuestaJugadorPregunta = respuestasJugador[pregunta.id];
-      const acierto = respuestaJugadorPregunta === respuestasAmigx[pregunta.id];
-      if (acierto) {
-        puntuacion += 1;
-        const mood = findMoodForAnswer(pregunta, respuestaJugadorPregunta);
-        if (mood) {
-          moodMatches[mood] += 1;
-        }
-      }
-    });
-
-    const compatibilidad = Math.round((puntuacion / totalPreguntas) * 100);
-    const nivel = calcularNivelVibes(puntuacion);
-
-    const nuevoResultado: FriendResult = {
-      nombre: nombreAmigx.trim(),
-      respuestas: { ...respuestasAmigx },
-      puntuacion,
-      compatibilidad,
-      nivel,
-      moodMatches,
+    const newResult: FriendResult = {
+      name: friendName.trim(),
+      answers: { ...currentFriendAnswers },
+      score,
+      level,
+      moodStats,
     };
 
-    setRankingAmigxs((prev) => {
-      const actualizado = [...prev, nuevoResultado];
-      return actualizado.sort(
-        (a, b) => b.puntuacion - a.puntuacion || b.compatibilidad - a.compatibilidad
-      );
+    setFriendResults((prev) => {
+      const next = [...prev, newResult];
+      return next.sort((a, b) => b.score - a.score);
     });
 
-    const sortedMoods = [...VIBES_MOODS].sort((a, b) => moodMatches[b] - moodMatches[a]);
-    const moodHighlight = sortedMoods.find(
-      (mood) => moodTotals[mood] > 0 && moodMatches[mood] > 0
+    const compatibility = Math.round((score / totalQuestions) * 100);
+    setMessage(
+      `${friendName.trim()} quedó en modo ${level} con ${score}/${totalQuestions} aciertos (${compatibility}%).`
     );
-    const moodText = moodHighlight
-      ? ` · ${MOOD_STYLES[moodHighlight].emoji} Dominio ${MOOD_STYLES[moodHighlight].label}`
-      : "";
-
-    setMensaje(`${nombreAmigx.trim()} logró ${puntuacion}/${totalPreguntas} · ${nivel}${moodText}`);
-    setNombreAmigx("");
-    setRespuestasAmigx({});
-    setPaso("results");
+    setFriendName("");
+    setCurrentFriendAnswers({});
+    setStep("results");
   };
 
-  const reiniciarParaNuevoAmigx = () => {
-    setMensaje(null);
-    setNombreAmigx("");
-    setRespuestasAmigx({});
-    setPaso("friendIntro");
+  const resetForNewFriend = () => {
+    setMessage(null);
+    setFriendName("");
+    setCurrentFriendAnswers({});
+    setStep("friendIntro");
   };
 
-  const reiniciarJuego = () => {
-    setPreguntasDelJuego(selectDefaultQuestions());
-    setPaso("intro");
-    setNombreJugador("");
-    setRespuestasJugador({});
-    setNombreAmigx("");
-    setRespuestasAmigx({});
-    setRankingAmigxs([]);
-    setMensaje("Vuelta a empezar. Nuevas vibes, ¿quién diría?");
+  const resetGame = () => {
+    setQuestions(getCoreQuestions(DEFAULT_QUESTION_COUNT));
+    setStep("intro");
+    setPlayerName("");
+    setSelfAnswers({});
+    setFriendName("");
+    setCurrentFriendAnswers({});
+    setFriendResults([]);
+    setMessage("Nueva temporada desbloqueada. Cambiamos decorado y vibes.");
   };
 
   return (
@@ -335,87 +166,91 @@ export default function VibesTestLanding(): JSX.Element {
       <div className="mx-auto max-w-4xl">
         <div className="overflow-hidden rounded-3xl bg-white/95 shadow-2xl backdrop-blur">
           <div className="bg-gradient-to-r from-fuchsia-600 to-amber-400 p-8 text-center text-white">
-            <h1 className="text-3xl font-black uppercase tracking-widest sm:text-4xl">VIBES TEST™</h1>
+            <h1 className="text-3xl font-black uppercase tracking-widest sm:text-4xl">
+              VIBES TEST™ Reality Camp Edition
+            </h1>
             <p className="mt-3 text-base font-medium sm:text-lg">
-              Adivina la vibra del <span className="font-semibold">{nombreJugadorDisplay}</span> y gana el
-              título máximo.
+              Hoy descubrimos quién te conoce de verdad y quién se lo está inventando fuerte.
             </p>
           </div>
 
           <div className="space-y-10 p-8 text-slate-900 sm:p-12">
             <section className="rounded-2xl border border-purple-200 bg-purple-50/60 p-6">
-              <h2 className="text-xl font-semibold text-purple-700">Personaje del Día™</h2>
+              <h2 className="text-xl font-semibold text-purple-700">Personaje del día</h2>
               <p className="mt-2 text-sm text-purple-700/80">
-                {nombreJugador.trim()
-                  ? `${nombreJugador.trim()} ya dejó sus respuestas secretas.`
-                  : "Primero registrá quién está marcando la vibra de hoy."}
+                {playerName.trim()
+                  ? `${playerName.trim()} ya dejó sus respuestas secretas en el confesionario.`
+                  : "Ponle nombre al alma protagonista de esta gala camp y empieza el juego."}
               </p>
             </section>
 
-            {mensaje && (
+            {message && (
               <div className="rounded-xl border border-amber-300 bg-amber-100/80 p-4 text-amber-900">
-                <p className="text-sm font-semibold uppercase tracking-wide">Mensaje del oráculo:</p>
-                <p className="mt-1 text-base">{mensaje}</p>
+                <p className="text-sm font-semibold uppercase tracking-wide">Mensaje del backstage:</p>
+                <p className="mt-1 text-base">{message}</p>
               </div>
             )}
 
-            {paso === "intro" && (
+            {step === "intro" && (
               <div className="space-y-6">
                 <div>
-                  <label className="text-sm font-semibold text-slate-700" htmlFor="nombre-jugador">
-                    Nombre del Personaje del Día™
+                  <label className="text-sm font-semibold text-slate-700" htmlFor="player-name">
+                    Nombre del personaje
                   </label>
                   <input
-                    id="nombre-jugador"
+                    id="player-name"
                     className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base shadow focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-300"
                     type="text"
                     placeholder="Ej: Flor, Kim, El Beki"
-                    value={nombreJugador}
-                    onChange={(event) => setNombreJugador(event.target.value)}
+                    value={playerName}
+                    onChange={(event) => setPlayerName(event.target.value)}
                   />
                 </div>
                 <button
                   type="button"
-                  onClick={iniciarTestPropio}
+                  onClick={startSelfQuiz}
                   className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 px-6 py-3 text-lg font-semibold text-white shadow-lg transition hover:scale-[1.01] hover:from-purple-500 hover:to-pink-400"
                 >
-                  Empezar mi test secreto
+                  Entrar al confesionario secreto
                 </button>
               </div>
             )}
 
-            {paso === "self" && (
+            {step === "self" && (
               <div className="space-y-6">
                 <h2 className="text-2xl font-bold text-slate-900">Tus respuestas confidenciales</h2>
                 <p className="text-sm text-slate-600">
-                  Nadie puede ver esto (todavía). Elegí la opción que represente mejor tu vibra actual.
+                  Contesta en primera persona. Esto es Telecinco drama + Disney Channel camp, pero solo tú ves las respuestas.
                 </p>
                 <div className="space-y-6">
-                  {preguntasDelJuego.map((pregunta) => (
-                    <div key={pregunta.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  {questions.map((question) => (
+                    <div key={question.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                       <p className="text-xs font-semibold uppercase tracking-wider text-purple-600">
-                        {pregunta.categoryLabel}
+                        {question.categoryLabel}
                       </p>
-                      <h3 className="mt-2 text-lg font-semibold text-slate-900">{pregunta.text}</h3>
+                      {question.scene && (
+                        <p className="mt-2 text-xs italic text-purple-500">{question.scene}</p>
+                      )}
+                      <h3 className="mt-3 text-lg font-semibold text-slate-900">{question.text}</h3>
                       <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                        {pregunta.options.map((opcion) => (
+                        {question.options.map((option, index) => (
                           <label
-                            key={`${pregunta.id}-${opcion.id}`}
+                            key={`${question.id}-${option.id}`}
                             className={`flex cursor-pointer items-center rounded-xl border px-4 py-3 text-sm font-medium transition ${
-                              respuestasJugador[pregunta.id] === opcion.id
+                              selfAnswers[question.id] === index
                                 ? "border-purple-500 bg-purple-100 text-purple-700 shadow"
                                 : "border-slate-200 bg-slate-50 text-slate-700 hover:border-purple-300 hover:bg-white"
                             }`}
                           >
                             <input
                               type="radio"
-                              name={`jugador-${pregunta.id}`}
+                              name={`self-${question.id}`}
                               className="hidden"
-                              value={opcion.id}
-                              checked={respuestasJugador[pregunta.id] === opcion.id}
-                              onChange={() => manejarRespuestaJugador(pregunta.id, opcion.id)}
+                              value={option.id}
+                              checked={selfAnswers[question.id] === index}
+                              onChange={() => handleSelfAnswer(question.id, index)}
                             />
-                            {opcion.label}
+                            {option.label}
                           </label>
                         ))}
                       </div>
@@ -424,7 +259,7 @@ export default function VibesTestLanding(): JSX.Element {
                 </div>
                 <button
                   type="button"
-                  onClick={enviarTestPropio}
+                  onClick={submitSelfQuiz}
                   className="w-full rounded-xl bg-gradient-to-r from-purple-600 to-indigo-500 px-6 py-3 text-lg font-semibold text-white shadow-lg transition hover:scale-[1.01] hover:from-purple-500 hover:to-indigo-400"
                 >
                   Guardar mis vibes secretas
@@ -432,69 +267,72 @@ export default function VibesTestLanding(): JSX.Element {
               </div>
             )}
 
-            {paso === "friendIntro" && (
+            {step === "friendIntro" && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-slate-900">¿Quién se anima a retar tus vibes?</h2>
+                <h2 className="text-2xl font-bold text-slate-900">Casting de retadorxs</h2>
                 <p className="text-sm text-slate-600">
-                  Presentá a la persona que intentará adivinar las respuestas de {nombreJugadorDisplay}.
+                  Presenta a quien intente adivinar las respuestas de {playerDisplay}. Reality vibes activas.
                 </p>
                 <div>
-                  <label className="text-sm font-semibold text-slate-700" htmlFor="nombre-amigx">
+                  <label className="text-sm font-semibold text-slate-700" htmlFor="friend-name">
                     Nombre del retador/a
                   </label>
                   <input
-                    id="nombre-amigx"
+                    id="friend-name"
                     className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-base shadow focus:border-purple-500 focus:outline-none focus:ring-2 focus:ring-purple-300"
                     type="text"
                     placeholder="Ej: Agus, Lu, Superfan #1"
-                    value={nombreAmigx}
-                    onChange={(event) => setNombreAmigx(event.target.value)}
+                    value={friendName}
+                    onChange={(event) => setFriendName(event.target.value)}
                   />
                 </div>
                 <button
                   type="button"
-                  onClick={iniciarTestAmigx}
+                  onClick={startFriendQuiz}
                   className="w-full rounded-xl bg-gradient-to-r from-amber-400 to-pink-500 px-6 py-3 text-lg font-semibold text-white shadow-lg transition hover:scale-[1.01] hover:from-amber-300 hover:to-pink-400"
                 >
-                  ¡Darle el test ahora!
+                  Lanzar el test al público
                 </button>
               </div>
             )}
 
-            {paso === "friendQuiz" && (
+            {step === "friendQuiz" && (
               <div className="space-y-6">
                 <h2 className="text-2xl font-bold text-slate-900">
-                  {nombreAmigx.trim() || "Tu amigx"} vs. las vibes de {nombreJugadorDisplay}
+                  {friendName.trim() || "Tu amigx"} vs. las vibes de {playerDisplay}
                 </h2>
                 <p className="text-sm text-slate-600">
-                  Elegí lo que creas que respondió el {nombreJugadorDisplay}. No hay presión, solo gloria.
+                  Adivina qué respondió {playerDisplay}. Aquí se separan las almas gemelas de las vibes inventadas.
                 </p>
                 <div className="space-y-6">
-                  {preguntasDelJuego.map((pregunta) => (
-                    <div key={pregunta.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  {questions.map((question) => (
+                    <div key={question.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                       <p className="text-xs font-semibold uppercase tracking-wider text-pink-500">
-                        {pregunta.categoryLabel}
+                        {question.categoryLabel}
                       </p>
-                      <h3 className="mt-2 text-lg font-semibold text-slate-900">{pregunta.text}</h3>
+                      {question.scene && (
+                        <p className="mt-2 text-xs italic text-pink-500">{question.scene}</p>
+                      )}
+                      <h3 className="mt-3 text-lg font-semibold text-slate-900">{question.text}</h3>
                       <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                        {pregunta.options.map((opcion) => (
+                        {question.options.map((option, index) => (
                           <label
-                            key={`${pregunta.id}-${opcion.id}`}
+                            key={`${question.id}-${option.id}`}
                             className={`flex cursor-pointer items-center rounded-xl border px-4 py-3 text-sm font-medium transition ${
-                              respuestasAmigx[pregunta.id] === opcion.id
+                              currentFriendAnswers[question.id] === index
                                 ? "border-amber-500 bg-amber-100 text-amber-800 shadow"
                                 : "border-slate-200 bg-slate-50 text-slate-700 hover:border-amber-300 hover:bg-white"
                             }`}
                           >
                             <input
                               type="radio"
-                              name={`amigx-${pregunta.id}`}
+                              name={`friend-${question.id}`}
                               className="hidden"
-                              value={opcion.id}
-                              checked={respuestasAmigx[pregunta.id] === opcion.id}
-                              onChange={() => manejarRespuestaAmigx(pregunta.id, opcion.id)}
+                              value={option.id}
+                              checked={currentFriendAnswers[question.id] === index}
+                              onChange={() => handleFriendAnswer(question.id, index)}
                             />
-                            {opcion.label}
+                            {option.label}
                           </label>
                         ))}
                       </div>
@@ -503,97 +341,87 @@ export default function VibesTestLanding(): JSX.Element {
                 </div>
                 <button
                   type="button"
-                  onClick={enviarTestAmigx}
+                  onClick={submitFriendQuiz}
                   className="w-full rounded-xl bg-gradient-to-r from-pink-500 to-red-500 px-6 py-3 text-lg font-semibold text-white shadow-lg transition hover:scale-[1.01] hover:from-pink-400 hover:to-red-400"
                 >
-                  Ver cuántas vibes acertó
+                  Revelar su destino en el ranking
                 </button>
               </div>
             )}
 
-            {paso === "results" && (
+            {step === "results" && (
               <div className="space-y-6">
-                <h2 className="text-2xl font-bold text-slate-900">Ranking de amigxs clarividentes</h2>
+                <h2 className="text-2xl font-bold text-slate-900">Ranking Reality Vibes</h2>
                 <p className="text-sm text-slate-600">
-                  Cada retador suma puntos por cada respuesta que adivinó. ¿Quién domina las vibes de {nombreJugadorDisplay}?
+                  Quién es alma gemela, quién telepático y quién vino a inventarse tu vida. Solo vale el drama sincero.
                 </p>
                 <div className="space-y-4">
-                  {rankingAmigxs.length === 0 ? (
+                  {friendResults.length === 0 ? (
                     <p className="rounded-xl border border-slate-200 bg-white p-6 text-center text-slate-600">
-                      Todavía no hay retadorxs. Invitá a alguien a intentar.
+                      Aún no hay retadorxs. Llama a tu crew y que empiece la gala.
                     </p>
                   ) : (
-                    rankingAmigxs.map((resultado, indice) => {
-                      const moodDistribution = calculateMoodDistribution(
-                        resultado.moodMatches
-                      );
+                    friendResults.map((result, index) => {
+                      const topMoods = getTopMoods(result.moodStats);
                       return (
-                      <div
-                        key={`${resultado.nombre}-${indice}`}
-                        className={`rounded-2xl border p-6 shadow-sm transition ${
-                          indice === 0
-                            ? "border-purple-500 bg-gradient-to-r from-purple-50 via-white to-pink-50"
-                            : "border-slate-200 bg-white"
-                        }`}
-                      >
-                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                          <div>
-                            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
-                              #{indice + 1} • {resultado.nivel}
-                            </p>
-                            <h3 className="text-xl font-bold text-slate-900">{resultado.nombre}</h3>
+                        <div
+                          key={`${result.name}-${index}`}
+                          className={`rounded-2xl border p-6 shadow-sm transition ${
+                            index === 0
+                              ? "border-purple-500 bg-gradient-to-r from-purple-50 via-white to-pink-50"
+                              : "border-slate-200 bg-white"
+                          }`}
+                        >
+                          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                              <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                                #{index + 1} • {result.level}
+                              </p>
+                              <p className="text-xs text-slate-500">{levelCopy[result.level] ?? ""}</p>
+                              <h3 className="text-xl font-bold text-slate-900">{result.name}</h3>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-sm font-semibold text-slate-600">Aciertos</p>
+                              <p className="text-lg font-bold text-slate-900">
+                                {result.score}/{totalQuestions}
+                              </p>
+                            </div>
                           </div>
-                          <div className="text-right">
-                            <p className="text-sm font-semibold text-slate-600">Puntuación</p>
-                            <p className="text-lg font-bold text-slate-900">
-                              {resultado.puntuacion}/{totalPreguntas}
-                            </p>
-                            <p className="text-xs font-medium text-slate-500">
-                              Compatibilidad {resultado.compatibilidad}%
-                            </p>
-                          </div>
-                        </div>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {VIBES_MOODS.map((mood) => {
-                            const totalMood = moodTotals[mood];
-                            if (!totalMood) {
-                              return null;
-                            }
-                            const percent = moodDistribution[mood];
-                            const { chipClass, emoji, label, percentClass } = MOOD_STYLES[mood];
-                            return (
-                              <div
-                                key={`${resultado.nombre}-${mood}`}
-                                className={`flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold ${chipClass}`}
-                              >
-                                <span className="flex items-center gap-1">
-                                  <span>{emoji}</span>
-                                  {label}
+                          <div className="mt-4 flex flex-wrap gap-2">
+                            {topMoods.length === 0 ? (
+                              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-500">
+                                Sin vibes dominantes
+                              </span>
+                            ) : (
+                              topMoods.map((mood) => (
+                                <span
+                                  key={`${result.name}-${mood}`}
+                                  className={`rounded-full border px-3 py-1 text-xs font-semibold ${moodAccent[mood]}`}
+                                >
+                                  {moodLabels[mood]} {result.moodStats[mood]}%
                                 </span>
-                                <span className={percentClass}>{percent}%</span>
-                              </div>
-                            );
-                          })}
+                              ))
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    );
+                      );
                     })
                   )}
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <button
                     type="button"
-                    onClick={reiniciarParaNuevoAmigx}
+                    onClick={resetForNewFriend}
                     className="flex-1 rounded-xl border border-purple-400 bg-white px-6 py-3 text-base font-semibold text-purple-600 shadow transition hover:border-purple-500 hover:text-purple-700"
                   >
                     Invitar a otra persona
                   </button>
                   <button
                     type="button"
-                    onClick={reiniciarJuego}
+                    onClick={resetGame}
                     className="flex-1 rounded-xl bg-slate-900 px-6 py-3 text-base font-semibold text-white shadow transition hover:bg-slate-800"
                   >
-                    Reiniciar todo el juego
+                    Reiniciar temporada
                   </button>
                 </div>
               </div>
