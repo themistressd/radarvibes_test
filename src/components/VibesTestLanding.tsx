@@ -1,4 +1,12 @@
 import { useMemo, useState } from "react";
+import { VIBES_QUESTION_LIBRARY } from "../data/vibesQuestionLibrary";
+import type { VibesMood, VibesQuestion } from "../vibes/types";
+
+type QuizStep = "intro" | "self" | "friendIntro" | "friendQuiz" | "results";
+
+type AnswerMap = Record<string, string>;
+
+type MoodScoreMap = Record<VibesMood, number>;
 
 type QuizStep = "intro" | "self" | "friendIntro" | "friendQuiz" | "results";
 
@@ -17,6 +25,122 @@ type FriendResult = {
   puntuacion: number;
   compatibilidad: number;
   nivel: string;
+  moodMatches: MoodScoreMap;
+};
+
+const QUESTION_LIMIT = 9;
+
+const VIBES_MOODS: VibesMood[] = ["CHILL", "SPICY", "DLUXE", "URBAN", "ARTSY"];
+
+const DEFAULT_PACK: VibesQuestion["packId"] = "CORE_VIBES";
+const DEFAULT_SPICY_LEVEL: VibesQuestion["spicyLevel"] = "SOFT";
+const CATEGORY_ORDER: VibesQuestion["category"][] = [
+  "VIBE_ESENCIA",
+  "VIBE_SOCIAL",
+  "VIBE_DRAMA",
+  "VIBE_SECRETA",
+  "VIBE_CAOS",
+];
+
+const shuffleArray = <T,>(items: T[]): T[] => {
+  const clone = [...items];
+  for (let index = clone.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [clone[index], clone[swapIndex]] = [clone[swapIndex], clone[index]];
+  }
+  return clone;
+};
+
+const selectDefaultQuestions = (): VibesQuestion[] => {
+  const base = VIBES_QUESTION_LIBRARY.filter((pregunta) => {
+    const isEnabled = pregunta.isEnabled ?? true;
+    return (
+      pregunta.packId === DEFAULT_PACK &&
+      pregunta.spicyLevel === DEFAULT_SPICY_LEVEL &&
+      isEnabled
+    );
+  });
+
+  const dataset = base.length >= QUESTION_LIMIT ? base : VIBES_QUESTION_LIBRARY;
+  const shuffled = shuffleArray(dataset);
+
+  const grouped = new Map<VibesQuestion["category"], VibesQuestion[]>();
+  shuffled.forEach((question) => {
+    const existing = grouped.get(question.category) ?? [];
+    existing.push(question);
+    grouped.set(question.category, existing);
+  });
+
+  const selected: VibesQuestion[] = [];
+  const usedIds = new Set<string>();
+
+  CATEGORY_ORDER.forEach((category) => {
+    const bucket = grouped.get(category);
+    if (!bucket?.length) {
+      return;
+    }
+    const choice = bucket.shift()!;
+    if (!usedIds.has(choice.id)) {
+      selected.push(choice);
+      usedIds.add(choice.id);
+    }
+  });
+
+  for (const question of shuffled) {
+    if (selected.length >= QUESTION_LIMIT) {
+      break;
+    }
+    if (usedIds.has(question.id)) {
+      continue;
+    }
+    selected.push(question);
+    usedIds.add(question.id);
+  }
+
+  return selected.slice(0, QUESTION_LIMIT);
+};
+
+const createMoodScoreMap = (): MoodScoreMap =>
+  VIBES_MOODS.reduce((acc, mood) => {
+    acc[mood] = 0;
+    return acc;
+  }, {} as MoodScoreMap);
+
+const MOOD_STYLES: Record<
+  VibesMood,
+  { label: string; emoji: string; chipClass: string; percentClass: string }
+> = {
+  CHILL: {
+    label: "Chill",
+    emoji: "🌊",
+    chipClass: "border-teal-200 bg-teal-50 text-teal-900",
+    percentClass: "text-teal-600",
+  },
+  SPICY: {
+    label: "Spicy",
+    emoji: "🌶️",
+    chipClass: "border-red-200 bg-red-50 text-red-900",
+    percentClass: "text-red-600",
+  },
+  DLUXE: {
+    label: "DLuxe",
+    emoji: "💎",
+    chipClass: "border-fuchsia-200 bg-fuchsia-50 text-fuchsia-900",
+    percentClass: "text-fuchsia-600",
+  },
+  URBAN: {
+    label: "Urban",
+    emoji: "🚦",
+    chipClass: "border-emerald-200 bg-emerald-50 text-emerald-900",
+    percentClass: "text-emerald-600",
+  },
+  ARTSY: {
+    label: "Artsy",
+    emoji: "🎨",
+    chipClass: "border-indigo-200 bg-indigo-50 text-indigo-900",
+    percentClass: "text-indigo-600",
+  },
+};
 };
 
 const preguntas: Question[] = [
@@ -132,6 +256,7 @@ function calcularNivelVibes(puntuacion: number): string {
 }
 
 export default function VibesTestLanding(): JSX.Element {
+  const [preguntasDelJuego, setPreguntasDelJuego] = useState<VibesQuestion[]>(() => selectDefaultQuestions());
   const [paso, setPaso] = useState<QuizStep>("intro");
   const [nombreJugador, setNombreJugador] = useState("");
   const [respuestasJugador, setRespuestasJugador] = useState<AnswerMap>({});
@@ -140,11 +265,27 @@ export default function VibesTestLanding(): JSX.Element {
   const [rankingAmigxs, setRankingAmigxs] = useState<FriendResult[]>([]);
   const [mensaje, setMensaje] = useState<string | null>(null);
 
+  const totalPreguntas = preguntasDelJuego.length || 1;
+  const moodTotals = useMemo(() => {
+    const totals = createMoodScoreMap();
+    preguntasDelJuego.forEach((pregunta) => {
+      pregunta.moods?.forEach((mood) => {
+        totals[mood] += 1;
+      });
+    });
+    return totals;
+  }, [preguntasDelJuego]);
+
   const nombreJugadorDisplay = useMemo(
     () => (nombreJugador.trim().length > 0 ? nombreJugador.trim() : "Personaje del Día™"),
     [nombreJugador]
   );
 
+  const manejarRespuestaJugador = (preguntaId: string, opcion: string) => {
+    setRespuestasJugador((prev) => ({ ...prev, [preguntaId]: opcion }));
+  };
+
+  const manejarRespuestaAmigx = (preguntaId: string, opcion: string) => {
   const manejarRespuestaJugador = (preguntaId: number, opcion: string) => {
     setRespuestasJugador((prev) => ({ ...prev, [preguntaId]: opcion }));
   };
@@ -163,6 +304,7 @@ export default function VibesTestLanding(): JSX.Element {
   };
 
   const enviarTestPropio = () => {
+    const todasRespondidas = preguntasDelJuego.every((pregunta) => respuestasJugador[pregunta.id]);
     const todasRespondidas = preguntas.every((pregunta) => respuestasJugador[pregunta.id]);
     if (!todasRespondidas) {
       setMensaje("Responde todas las preguntas para sellar tus vibes.");
@@ -183,12 +325,25 @@ export default function VibesTestLanding(): JSX.Element {
   };
 
   const enviarTestAmigx = () => {
+    const todasRespondidas = preguntasDelJuego.every((pregunta) => respuestasAmigx[pregunta.id]);
     const todasRespondidas = preguntas.every((pregunta) => respuestasAmigx[pregunta.id]);
     if (!todasRespondidas) {
       setMensaje("Que conteste todo, no vale soplar respuestas.");
       return;
     }
 
+    const moodMatches = createMoodScoreMap();
+    let puntuacion = 0;
+
+    preguntasDelJuego.forEach((pregunta) => {
+      const acierto = respuestasJugador[pregunta.id] === respuestasAmigx[pregunta.id];
+      if (acierto) {
+        puntuacion += 1;
+        pregunta.moods?.forEach((mood) => {
+          moodMatches[mood] += 1;
+        });
+      }
+    });
     const puntuacion = preguntas.reduce((acumulado, pregunta) => {
       return acumulado + (respuestasJugador[pregunta.id] === respuestasAmigx[pregunta.id] ? 1 : 0);
     }, 0);
@@ -202,6 +357,7 @@ export default function VibesTestLanding(): JSX.Element {
       puntuacion,
       compatibilidad,
       nivel,
+      moodMatches,
     };
 
     setRankingAmigxs((prev) => {
@@ -209,6 +365,15 @@ export default function VibesTestLanding(): JSX.Element {
       return actualizado.sort((a, b) => b.puntuacion - a.puntuacion || b.compatibilidad - a.compatibilidad);
     });
 
+    const sortedMoods = [...VIBES_MOODS].sort((a, b) => moodMatches[b] - moodMatches[a]);
+    const moodHighlight = sortedMoods.find(
+      (mood) => moodTotals[mood] > 0 && moodMatches[mood] > 0
+    );
+    const moodText = moodHighlight
+      ? ` · ${MOOD_STYLES[moodHighlight].emoji} Dominio ${MOOD_STYLES[moodHighlight].label}`
+      : "";
+
+    setMensaje(`${nombreAmigx.trim()} logró ${puntuacion}/${totalPreguntas} · ${nivel}${moodText}`);
     setMensaje(`${nombreAmigx.trim()} logró ${puntuacion}/${totalPreguntas} · ${nivel}`);
     setNombreAmigx("");
     setRespuestasAmigx({});
@@ -218,6 +383,17 @@ export default function VibesTestLanding(): JSX.Element {
   const reiniciarParaNuevoAmigx = () => {
     setMensaje(null);
     setPaso("friendIntro");
+  };
+
+  const reiniciarJuego = () => {
+    setPreguntasDelJuego(selectDefaultQuestions());
+    setPaso("intro");
+    setNombreJugador("");
+    setRespuestasJugador({});
+    setNombreAmigx("");
+    setRespuestasAmigx({});
+    setRankingAmigxs([]);
+    setMensaje("Vuelta a empezar. Nuevas vibes, ¿quién diría?");
   };
 
   return (
@@ -284,6 +460,18 @@ export default function VibesTestLanding(): JSX.Element {
                   Nadie puede ver esto (todavía). Elegí la opción que represente mejor tu vibra actual.
                 </p>
                 <div className="space-y-6">
+                  {preguntasDelJuego.map((pregunta) => (
+                    <div key={pregunta.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-purple-600">
+                        {pregunta.categoryLabel}
+                      </p>
+                      <h3 className="mt-2 text-lg font-semibold text-slate-900">{pregunta.text}</h3>
+                      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                        {pregunta.options.map((opcion) => (
+                          <label
+                            key={`${pregunta.id}-${opcion.id}`}
+                            className={`flex cursor-pointer items-center rounded-xl border px-4 py-3 text-sm font-medium transition ${
+                              respuestasJugador[pregunta.id] === opcion.id
                   {preguntas.map((pregunta) => (
                     <div key={pregunta.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                       <p className="text-xs font-semibold uppercase tracking-wider text-purple-600">
@@ -304,6 +492,11 @@ export default function VibesTestLanding(): JSX.Element {
                               type="radio"
                               name={`jugador-${pregunta.id}`}
                               className="hidden"
+                              value={opcion.id}
+                              checked={respuestasJugador[pregunta.id] === opcion.id}
+                              onChange={() => manejarRespuestaJugador(pregunta.id, opcion.id)}
+                            />
+                            {opcion.label}
                               value={opcion}
                               checked={respuestasJugador[pregunta.id] === opcion}
                               onChange={() => manejarRespuestaJugador(pregunta.id, opcion)}
@@ -363,6 +556,18 @@ export default function VibesTestLanding(): JSX.Element {
                   Elegí lo que creas que respondió el {nombreJugadorDisplay}. No hay presión, solo gloria.
                 </p>
                 <div className="space-y-6">
+                  {preguntasDelJuego.map((pregunta) => (
+                    <div key={pregunta.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-pink-500">
+                        {pregunta.categoryLabel}
+                      </p>
+                      <h3 className="mt-2 text-lg font-semibold text-slate-900">{pregunta.text}</h3>
+                      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                        {pregunta.options.map((opcion) => (
+                          <label
+                            key={`${pregunta.id}-${opcion.id}`}
+                            className={`flex cursor-pointer items-center rounded-xl border px-4 py-3 text-sm font-medium transition ${
+                              respuestasAmigx[pregunta.id] === opcion.id
                   {preguntas.map((pregunta) => (
                     <div key={pregunta.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                       <p className="text-xs font-semibold uppercase tracking-wider text-pink-500">
@@ -383,6 +588,11 @@ export default function VibesTestLanding(): JSX.Element {
                               type="radio"
                               name={`amigx-${pregunta.id}`}
                               className="hidden"
+                              value={opcion.id}
+                              checked={respuestasAmigx[pregunta.id] === opcion.id}
+                              onChange={() => manejarRespuestaAmigx(pregunta.id, opcion.id)}
+                            />
+                            {opcion.label}
                               value={opcion}
                               checked={respuestasAmigx[pregunta.id] === opcion}
                               onChange={() => manejarRespuestaAmigx(pregunta.id, opcion)}
@@ -419,12 +629,53 @@ export default function VibesTestLanding(): JSX.Element {
                     rankingAmigxs.map((resultado, indice) => (
                       <div
                         key={`${resultado.nombre}-${indice}`}
+                        className={`rounded-2xl border p-6 shadow-sm transition ${
                         className={`flex items-center justify-between rounded-2xl border p-6 shadow-sm transition ${
                           indice === 0
                             ? "border-purple-500 bg-gradient-to-r from-purple-50 via-white to-pink-50"
                             : "border-slate-200 bg-white"
                         }`}
                       >
+                        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                          <div>
+                            <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+                              #{indice + 1} • {resultado.nivel}
+                            </p>
+                            <h3 className="text-xl font-bold text-slate-900">{resultado.nombre}</h3>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm font-semibold text-slate-600">Puntuación</p>
+                            <p className="text-lg font-bold text-slate-900">
+                              {resultado.puntuacion}/{totalPreguntas}
+                            </p>
+                            <p className="text-xs font-medium text-slate-500">
+                              Compatibilidad {resultado.compatibilidad}%
+                            </p>
+                          </div>
+                        </div>
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {VIBES_MOODS.map((mood) => {
+                            const totalMood = moodTotals[mood];
+                            if (!totalMood) {
+                              return null;
+                            }
+                            const percent = Math.round(
+                              (resultado.moodMatches[mood] / totalMood) * 100
+                            );
+                            const { chipClass, emoji, label, percentClass } = MOOD_STYLES[mood];
+                            return (
+                              <div
+                                key={`${resultado.nombre}-${mood}`}
+                                className={`flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold ${chipClass}`}
+                              >
+                                <span className="flex items-center gap-1">
+                                  <span>{emoji}</span>
+                                  {label}
+                                </span>
+                                <span className={percentClass}>{percent}%</span>
+                              </div>
+                            );
+                          })}
                         <div>
                           <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">
                             #{indice + 1} • {resultado.nivel}
@@ -454,6 +705,7 @@ export default function VibesTestLanding(): JSX.Element {
                   </button>
                   <button
                     type="button"
+                    onClick={reiniciarJuego}
                     onClick={() => {
                       setPaso("intro");
                       setNombreJugador("");
