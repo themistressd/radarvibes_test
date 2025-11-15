@@ -21,37 +21,79 @@ const QUESTION_LIMIT = 9;
 
 const VIBES_MOODS: VibesMood[] = ["CHILL", "SPICY", "DLUXE", "URBAN", "ARTSY"];
 
-const selectDefaultQuestions = (): VibesQuestion[] => {
-  const base = VIBES_QUESTION_LIBRARY.filter(
-    (pregunta) =>
-      pregunta.packId === "CORE_VIBES" &&
-      pregunta.spicyLevel === "SOFT" &&
-      (pregunta.isEnabled ?? true)
-  );
+const DEFAULT_PACK: VibesQuestion["packId"] = "CORE_VIBES";
+const DEFAULT_SPICY_LEVEL: VibesQuestion["spicyLevel"] = "SOFT";
+const CATEGORY_ORDER: VibesQuestion["category"][] = [
+  "VIBE_ESENCIA",
+  "VIBE_SOCIAL",
+  "VIBE_DRAMA",
+  "VIBE_SECRETA",
+  "VIBE_CAOS",
+];
 
-  const dataset = base.length >= QUESTION_LIMIT ? base : VIBES_QUESTION_LIBRARY;
-  return dataset.slice(0, QUESTION_LIMIT);
+const shuffleArray = <T,>(items: T[]): T[] => {
+  const clone = [...items];
+  for (let index = clone.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [clone[index], clone[swapIndex]] = [clone[swapIndex], clone[index]];
+  }
+  return clone;
 };
 
-const preguntas = selectDefaultQuestions();
+const selectDefaultQuestions = (): VibesQuestion[] => {
+  const base = VIBES_QUESTION_LIBRARY.filter((pregunta) => {
+    const isEnabled = pregunta.isEnabled ?? true;
+    return (
+      pregunta.packId === DEFAULT_PACK &&
+      pregunta.spicyLevel === DEFAULT_SPICY_LEVEL &&
+      isEnabled
+    );
+  });
 
-const totalPreguntas = preguntas.length || 1;
+  const dataset = base.length >= QUESTION_LIMIT ? base : VIBES_QUESTION_LIBRARY;
+  const shuffled = shuffleArray(dataset);
+
+  const grouped = new Map<VibesQuestion["category"], VibesQuestion[]>();
+  shuffled.forEach((question) => {
+    const existing = grouped.get(question.category) ?? [];
+    existing.push(question);
+    grouped.set(question.category, existing);
+  });
+
+  const selected: VibesQuestion[] = [];
+  const usedIds = new Set<string>();
+
+  CATEGORY_ORDER.forEach((category) => {
+    const bucket = grouped.get(category);
+    if (!bucket?.length) {
+      return;
+    }
+    const choice = bucket.shift()!;
+    if (!usedIds.has(choice.id)) {
+      selected.push(choice);
+      usedIds.add(choice.id);
+    }
+  });
+
+  for (const question of shuffled) {
+    if (selected.length >= QUESTION_LIMIT) {
+      break;
+    }
+    if (usedIds.has(question.id)) {
+      continue;
+    }
+    selected.push(question);
+    usedIds.add(question.id);
+  }
+
+  return selected.slice(0, QUESTION_LIMIT);
+};
 
 const createMoodScoreMap = (): MoodScoreMap =>
   VIBES_MOODS.reduce((acc, mood) => {
     acc[mood] = 0;
     return acc;
   }, {} as MoodScoreMap);
-
-const moodTotals = (() => {
-  const totals = createMoodScoreMap();
-  preguntas.forEach((pregunta) => {
-    pregunta.moods?.forEach((mood) => {
-      totals[mood] += 1;
-    });
-  });
-  return totals;
-})();
 
 const MOOD_STYLES: Record<
   VibesMood,
@@ -103,6 +145,7 @@ function calcularNivelVibes(puntuacion: number): string {
 }
 
 export default function VibesTestLanding(): JSX.Element {
+  const [preguntasDelJuego, setPreguntasDelJuego] = useState<VibesQuestion[]>(() => selectDefaultQuestions());
   const [paso, setPaso] = useState<QuizStep>("intro");
   const [nombreJugador, setNombreJugador] = useState("");
   const [respuestasJugador, setRespuestasJugador] = useState<AnswerMap>({});
@@ -110,6 +153,17 @@ export default function VibesTestLanding(): JSX.Element {
   const [respuestasAmigx, setRespuestasAmigx] = useState<AnswerMap>({});
   const [rankingAmigxs, setRankingAmigxs] = useState<FriendResult[]>([]);
   const [mensaje, setMensaje] = useState<string | null>(null);
+
+  const totalPreguntas = preguntasDelJuego.length || 1;
+  const moodTotals = useMemo(() => {
+    const totals = createMoodScoreMap();
+    preguntasDelJuego.forEach((pregunta) => {
+      pregunta.moods?.forEach((mood) => {
+        totals[mood] += 1;
+      });
+    });
+    return totals;
+  }, [preguntasDelJuego]);
 
   const nombreJugadorDisplay = useMemo(
     () => (nombreJugador.trim().length > 0 ? nombreJugador.trim() : "Personaje del Día™"),
@@ -134,7 +188,7 @@ export default function VibesTestLanding(): JSX.Element {
   };
 
   const enviarTestPropio = () => {
-    const todasRespondidas = preguntas.every((pregunta) => respuestasJugador[pregunta.id]);
+    const todasRespondidas = preguntasDelJuego.every((pregunta) => respuestasJugador[pregunta.id]);
     if (!todasRespondidas) {
       setMensaje("Responde todas las preguntas para sellar tus vibes.");
       return;
@@ -154,7 +208,7 @@ export default function VibesTestLanding(): JSX.Element {
   };
 
   const enviarTestAmigx = () => {
-    const todasRespondidas = preguntas.every((pregunta) => respuestasAmigx[pregunta.id]);
+    const todasRespondidas = preguntasDelJuego.every((pregunta) => respuestasAmigx[pregunta.id]);
     if (!todasRespondidas) {
       setMensaje("Que conteste todo, no vale soplar respuestas.");
       return;
@@ -163,7 +217,7 @@ export default function VibesTestLanding(): JSX.Element {
     const moodMatches = createMoodScoreMap();
     let puntuacion = 0;
 
-    preguntas.forEach((pregunta) => {
+    preguntasDelJuego.forEach((pregunta) => {
       const acierto = respuestasJugador[pregunta.id] === respuestasAmigx[pregunta.id];
       if (acierto) {
         puntuacion += 1;
@@ -207,6 +261,17 @@ export default function VibesTestLanding(): JSX.Element {
   const reiniciarParaNuevoAmigx = () => {
     setMensaje(null);
     setPaso("friendIntro");
+  };
+
+  const reiniciarJuego = () => {
+    setPreguntasDelJuego(selectDefaultQuestions());
+    setPaso("intro");
+    setNombreJugador("");
+    setRespuestasJugador({});
+    setNombreAmigx("");
+    setRespuestasAmigx({});
+    setRankingAmigxs([]);
+    setMensaje("Vuelta a empezar. Nuevas vibes, ¿quién diría?");
   };
 
   return (
@@ -273,7 +338,7 @@ export default function VibesTestLanding(): JSX.Element {
                   Nadie puede ver esto (todavía). Elegí la opción que represente mejor tu vibra actual.
                 </p>
                 <div className="space-y-6">
-                  {preguntas.map((pregunta) => (
+                  {preguntasDelJuego.map((pregunta) => (
                     <div key={pregunta.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                       <p className="text-xs font-semibold uppercase tracking-wider text-purple-600">
                         {pregunta.categoryLabel}
@@ -352,7 +417,7 @@ export default function VibesTestLanding(): JSX.Element {
                   Elegí lo que creas que respondió el {nombreJugadorDisplay}. No hay presión, solo gloria.
                 </p>
                 <div className="space-y-6">
-                  {preguntas.map((pregunta) => (
+                  {preguntasDelJuego.map((pregunta) => (
                     <div key={pregunta.id} className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
                       <p className="text-xs font-semibold uppercase tracking-wider text-pink-500">
                         {pregunta.categoryLabel}
@@ -469,15 +534,7 @@ export default function VibesTestLanding(): JSX.Element {
                   </button>
                   <button
                     type="button"
-                    onClick={() => {
-                      setPaso("intro");
-                      setNombreJugador("");
-                      setRespuestasJugador({});
-                      setNombreAmigx("");
-                      setRespuestasAmigx({});
-                      setRankingAmigxs([]);
-                      setMensaje("Vuelta a empezar. Nuevas vibes, ¿quién diría?");
-                    }}
+                    onClick={reiniciarJuego}
                     className="flex-1 rounded-xl bg-slate-900 px-6 py-3 text-base font-semibold text-white shadow transition hover:bg-slate-800"
                   >
                     Reiniciar todo el juego

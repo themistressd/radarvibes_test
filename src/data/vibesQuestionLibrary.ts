@@ -1,6 +1,6 @@
 import type { VibesQuestion } from "../vibes/types";
 
-export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
+const CORE_VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
   {
     id: "CORE-ESENCIA-1",
     category: "VIBE_ESENCIA",
@@ -797,3 +797,5 @@ export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [
     moods: ["URBAN", "ARTSY", "SPICY"],
   },
 ];
+
+export const VIBES_QUESTION_LIBRARY: VibesQuestion[] = [...CORE_VIBES_QUESTION_LIBRARY];
