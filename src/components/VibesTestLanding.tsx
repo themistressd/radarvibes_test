@@ -3,8 +3,15 @@ import {
   calculateFriendResult,
   getCoreQuestions,
   DEFAULT_QUESTION_COUNT,
+  normalizeMoodStats,
 } from "../vibes/gameUtils";
 import { AnswersMap, MoodStats, VibesMood, VibesQuestion } from "../vibes/types";
+import {
+  getFriendOracleMessage,
+  getGroupOracleMessage,
+  getMainOracleMessage,
+  mapLevelToFriendLevel,
+} from "../vibes/oracle";
 
 type QuizStep = "intro" | "self" | "friendIntro" | "friendQuiz" | "results";
 
@@ -45,6 +52,28 @@ const levelCopy: Record<string, string> = {
   "VIBE INVENTADA 🤡": "Cari, ¿tú me conoces o te lo estás inventando?",
 };
 
+const emptyMoodStats: MoodStats = {
+  CHILL: 0,
+  SPICY: 0,
+  DLUXE: 0,
+  URBAN: 0,
+  ARTSY: 0,
+};
+
+function aggregateMoodStats(results: FriendResult[]): MoodStats {
+  if (results.length === 0) return { ...emptyMoodStats };
+
+  const totals: MoodStats = { ...emptyMoodStats };
+
+  results.forEach((friend) => {
+    (Object.keys(totals) as VibesMood[]).forEach((mood) => {
+      totals[mood] += friend.moodStats[mood] ?? 0;
+    });
+  });
+
+  return normalizeMoodStats(totals);
+}
+
 export default function VibesTestLanding(): JSX.Element {
   const [questions, setQuestions] = useState<VibesQuestion[]>([]);
   const [step, setStep] = useState<QuizStep>("intro");
@@ -64,6 +93,61 @@ export default function VibesTestLanding(): JSX.Element {
   const playerDisplay = useMemo(
     () => (playerName.trim().length > 0 ? playerName.trim() : "Personaje del Día™"),
     [playerName]
+  );
+
+  const hasResults = friendResults.length > 0;
+
+  const aggregatedMoodStats = useMemo(
+    () => aggregateMoodStats(friendResults),
+    [friendResults]
+  );
+
+  const scorePercents = useMemo(() => {
+    if (!hasResults || totalQuestions === 0) {
+      return { avg: 0, max: 0, min: 0 };
+    }
+
+    const percents = friendResults.map((result) =>
+      (result.score / totalQuestions) * 100
+    );
+
+    const avg =
+      percents.reduce((acc, value) => acc + value, 0) / percents.length;
+
+    return {
+      avg,
+      max: Math.max(...percents),
+      min: Math.min(...percents),
+    };
+  }, [friendResults, hasResults, totalQuestions]);
+
+  const mostTelepathicFriendName = hasResults ? friendResults[0].name : undefined;
+  const mostFakeFriendName = hasResults
+    ? friendResults[friendResults.length - 1].name
+    : undefined;
+
+  const mainOracleText = useMemo(
+    () =>
+      getMainOracleMessage({
+        moodStats: aggregatedMoodStats,
+        playerName: playerDisplay,
+        avgScorePercent: scorePercents.avg,
+        mostTelepathicFriendName,
+        mostFakeFriendName,
+      }),
+    [aggregatedMoodStats, playerDisplay, scorePercents, mostTelepathicFriendName, mostFakeFriendName]
+  );
+
+  const groupOracleText = useMemo(
+    () =>
+      getGroupOracleMessage({
+        moodStats: aggregatedMoodStats,
+        avgScorePercent: scorePercents.avg,
+        maxScorePercent: scorePercents.max,
+        minScorePercent: scorePercents.min,
+        playersCount: friendResults.length,
+      }),
+    [aggregatedMoodStats, friendResults.length, scorePercents]
   );
 
   const handleSelfAnswer = (questionId: string, optionIndex: number) => {
@@ -355,6 +439,29 @@ export default function VibesTestLanding(): JSX.Element {
                 <p className="text-sm text-slate-600">
                   Quién es alma gemela, quién telepático y quién vino a inventarse tu vida. Solo vale el drama sincero.
                 </p>
+
+                {hasResults ? (
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    <article className="rounded-2xl border border-purple-200 bg-purple-50/70 p-5 shadow-sm">
+                      <h3 className="text-lg font-semibold text-purple-800">Oráculo principal</h3>
+                      <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-purple-500">Personaje del Día™</p>
+                      <pre className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-purple-900">
+                        {mainOracleText}
+                      </pre>
+                    </article>
+                    <article className="rounded-2xl border border-amber-200 bg-amber-50/70 p-5 shadow-sm">
+                      <h3 className="text-lg font-semibold text-amber-800">Oráculo del grupo</h3>
+                      <p className="mt-1 text-xs font-semibold uppercase tracking-wide text-amber-500">Crew completa</p>
+                      <pre className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-amber-900">
+                        {groupOracleText}
+                      </pre>
+                    </article>
+                  </div>
+                ) : (
+                  <div className="rounded-xl border border-slate-200 bg-white p-4 text-slate-600">
+                    El oráculo está calentando el altar. Juega con al menos una persona para revelar profecías.
+                  </div>
+                )}
                 <div className="space-y-4">
                   {friendResults.length === 0 ? (
                     <p className="rounded-xl border border-slate-200 bg-white p-6 text-center text-slate-600">
@@ -408,6 +515,41 @@ export default function VibesTestLanding(): JSX.Element {
                     })
                   )}
                 </div>
+
+                {hasResults && (
+                  <section className="space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Oráculo por amigx</p>
+                        <h3 className="text-lg font-bold text-slate-900">Lecturas express</h3>
+                      </div>
+                      <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-600">
+                        {friendResults.length} profecías
+                      </span>
+                    </div>
+                    <div className="grid gap-3 md:grid-cols-2">
+                      {friendResults.map((result, index) => {
+                        const friendOracleText = getFriendOracleMessage({
+                          name: result.name,
+                          level: mapLevelToFriendLevel(result.level),
+                          moodStats: result.moodStats,
+                          scorePercent: (result.score / totalQuestions) * 100,
+                        });
+
+                        return (
+                          <article
+                            key={`${result.name}-${index}-oracle`}
+                            className="rounded-xl border border-slate-200 bg-slate-50/70 p-4"
+                          >
+                            <pre className="whitespace-pre-wrap text-sm leading-relaxed text-slate-800">
+                              {friendOracleText}
+                            </pre>
+                          </article>
+                        );
+                      })}
+                    </div>
+                  </section>
+                )}
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <button
                     type="button"
